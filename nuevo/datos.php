@@ -92,21 +92,21 @@
                             <div class="form-group">
                                 <label for="empresa_tipo_documento">Tipo de documento</label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="empresa_tipo_documento" name="empresa_tipo_documento" value="2 - Cedula (Actual)">
+                                    <input type="text" id="empresa_tipo_documento" name="empresa_tipo_documento" value="">
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="empresa_numero_documento">Numero de documento</label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="empresa_numero_documento" name="empresa_numero_documento" value="1242456872">
+                                    <input type="text" id="empresa_numero_documento" name="empresa_numero_documento" value="">
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="empresa_nombre">Nombre</label>
                                  <div class="input-with-icon">
-                                    <input type="text" id="empresa_nombre" name="empresa_nombre" value="Domingo">
+                                    <input type="text" id="empresa_nombre" name="empresa_nombre" value="">
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                         <div class="form-row">
                             <div class="form-group form-group-fullwidth">
                                 <label for="empresa_direccion">Direccion</label>
-                                <input type="text" id="empresa_direccion" name="empresa_direccion" value="Avenida Rush Bell belongingtong california">
+                                <input type="text" id="empresa_direccion" name="empresa_direccion" value="">
                             </div>
                         </div>
                     </div>
@@ -124,11 +124,11 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="empresa_telefono">Telefono</label>
-                                <input type="text" id="empresa_telefono" name="empresa_telefono" value="04160243003">
+                                <input type="text" id="empresa_telefono" name="empresa_telefono" value="">
                             </div>
                             <div class="form-group">
                                 <label for="empresa_email">Email</label>
-                                <input type="email" id="empresa_email" name="empresa_email" value="mendoza@data.com">
+                                <input type="email" id="empresa_email" name="empresa_email" value="">
                             </div>
                         </div>
                     </div>
@@ -139,14 +139,14 @@
                             <div class="form-group">
                                 <label for="empresa_nombre_impuesto">Nombre de impuesto</label>
                                  <div class="input-with-icon">
-                                    <input type="text" id="empresa_nombre_impuesto" name="empresa_nombre_impuesto" value="IVA">
+                                    <input type="text" id="empresa_nombre_impuesto" name="empresa_nombre_impuesto" value="">
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="empresa_impuesto_porcentaje">Impuesto porcentaje %</label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="empresa_impuesto_porcentaje" name="empresa_impuesto_porcentaje" value="15">
+                                    <input type="text" id="empresa_impuesto_porcentaje" name="empresa_impuesto_porcentaje" value="">
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
