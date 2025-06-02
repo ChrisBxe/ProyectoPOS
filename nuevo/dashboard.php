@@ -61,7 +61,7 @@
                     <li class="has-submenu">
                         <a><span class="icon"></span> Configuracion</a>
                         <ul class="submenu">
-                            <li><a href="datos"><span class="icon"></span> Datos</a></li>
+                            <li><a href="datos.php"><span class="icon"></span> Datos</a></li>
                         </ul>
                     </li>
             </nav>
