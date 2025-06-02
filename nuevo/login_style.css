@@ -1,0 +1,122 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden; /* Para evitar barras de scroll si el gradiente es exacto */
+}
+
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Gradiente aproximado de la imagen. Ajusta los colores segun sea necesario. */
+    /* Izquierda: #2A3A67 (azul oscuro/purpura) */
+    /* Derecha: #36A39A (verde azulado/teal) */
+    background: linear-gradient(to right, #2c3e50, #1abc9c); /* Ejemplo con colores de un tema comun */
+    /* Para un gradiente mas cercano a la imagen: */
+    /* background: linear-gradient(to right, #2a3a67, #36a39a); */
+
+}
+
+.login-box {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 320px;
+    max-width: 90%;
+}
+
+.login-icon-main {
+    margin-bottom: 15px;
+}
+
+.login-icon-main .icon-placeholder {
+    font-size: 4em; /* Tamaño del icono principal */
+    color: #4a4a4a; /* Un gris oscuro para el icono */
+}
+/* Si usas Font Awesome para el icono principal:
+.login-icon-main .fas {
+    font-size: 4em;
+    color: #4a4a4a;
+}
+*/
+
+.login-box h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.1em; /* Un poco mas pequeño y sutil */
+    color: #777; /* Color de texto del titulo */
+    font-weight: 400; /* Mas ligero */
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* Espacio a la izquierda para el icono */
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-sizing: border-box; /* Importante */
+    font-size: 0.95em;
+    color: #333;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="password"]:focus {
+    outline: none;
+    border-color: #1abc9c; /* Color de acento del gradiente */
+    box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2);
+}
+
+.input-icon-placeholder {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 1em;
+}
+/* Si usas Font Awesome para los iconos de input:
+.input-icon-fa {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 1em;
+}
+*/
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #f0f2f5; /* Un gris muy claro, casi blanco */
+    border: 1px solid #d0d0d0; /* Borde sutil */
+    color: #555; /* Color de texto del boton */
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95em;
+    text-transform: uppercase; /* Como en la imagen */
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #e9ecef;
+    border-color: #c0c0c0;
+}
+
+.login-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2); /* Sombra de foco con el color de acento */
+}

@@ -1,0 +1,855 @@
+    /* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.icon {
+    margin-right: 10px;
+    /* Para iconos de Font Awesome u otros, ajustar el tamaño aquí */
+}
+
+.icon-large {
+    font-size: 3em; /* Tamaño más grande para iconos de widgets */
+    margin-bottom: 10px;
+    display: block; /* Para que el margen inferior funcione */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #2c3e50; /* Azul oscuro/gris */
+    color: #ecf0f1; /* Texto claro */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #34495e;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #3498db; /* Borde azul claro */
+}
+
+.sidebar-header h2 {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.sidebar-header p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #bdc3c7; /* Gris claro */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li a {
+    display: flex; /* Para alinear icono y texto */
+    align-items: center; /* Para alinear icono y texto */
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background-color 0.3s ease, border-left-color 0.3s ease;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li.active a {
+    background-color: #34495e; /* Azul/gris más oscuro */
+    border-left-color: #3498db; /* Azul claro */
+}
+
+.sidebar-nav li.has-submenu > a::after { /* Indicador de submenu (simple) */
+    content: '▼';
+    margin-left: auto;
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-nav li.has-submenu.open > a::after { /* Si se implementa JS para abrir/cerrar */
+    transform: rotate(180deg);
+}
+
+
+.submenu {
+    list-style: none;
+    padding-left: 20px; /* Indentación para submenu */
+    background-color: #23313f; /* Un poco más oscuro */
+    max-height: 0; /* Oculto por defecto, se necesitaría JS para mostrar */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* Para mostrar el submenu (se puede activar con JS o :hover para prueba) */
+.sidebar-nav li.has-submenu:hover .submenu,
+.sidebar-nav li.has-submenu.open .submenu {
+    max-height: 500px; /* Altura suficiente para mostrar los ítems */
+}
+
+.submenu li a {
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+.submenu li a .icon {
+    font-size: 0.9em; /* Iconos más pequeños en submenu */
+}
+
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #e9eef2; /* Fondo gris claro para el contenido */
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 70px; /* Altura fija como en la imagen */
+    box-sizing: border-box;
+}
+
+.menu-toggle .icon {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #555;
+}
+
+.dashboard-title {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.dashboard-title h1 {
+    margin: 0 0 5px 0;
+    font-size: 1.4em;
+    color: #333;
+    font-weight: 600;
+}
+
+.dashboard-title p {
+    margin: 0;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.dashboard-title p strong {
+    color: #2c3e50;
+}
+
+.user-actions .icon {
+    font-size: 1.3em;
+    margin-left: 20px;
+    cursor: pointer;
+    color: #555;
+}
+.user-actions .icon:last-child{ /* Asumiendo que POWER es el último */
+    color: #e74c3c; /* Rojo para el icono de apagado */
+}
+
+
+/* Dashboard Widgets */
+.dashboard-widgets {
+    padding: 25px;
+    flex-grow: 1;
+}
+
+.widget-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre widgets */
+    margin-bottom: 20px;
+}
+
+.widget {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1; /* Que ocupen el espacio disponible */
+    min-width: 150px; /* Ancho mínimo para cada widget */
+    border-top: 4px solid transparent; /* Borde superior coloreado */
+}
+
+/* Colores específicos para los bordes de los widgets (simulando la imagen) */
+.widget:nth-child(1) { border-top-color: #1abc9c; } /* Cajas - Verde */
+.widget:nth-child(2) { border-top-color: #3498db; } /* Categorías - Azul */
+.widget:nth-child(3) { border-top-color: #9b59b6; } /* Usuarios - Morado */
+.widget:nth-child(4) { border-top-color: #f1c40f; } /* Productos - Amarillo */
+.widget:nth-child(5) { border-top-color: #e67e22; } /* Clientes - Naranja */
+.widget:nth-child(6) { border-top-color: #e74c3c; } /* Movimientos - Rojo */
+.widget:nth-child(7) { border-top-color: #34495e; } /* Ventas - Gris oscuro */
+
+
+.widget h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.widget p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #7f8c8d; /* Gris */
+}
+
+.large-widget {
+    flex-basis: calc(50% - 10px); /* Ocupa casi la mitad, ajustando por el gap */
+    /* O podrías darle un min-width más grande si prefieres */
+    min-height: 120px; /* Un poco más alto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.widget-row .large-widget:nth-child(1) { border-top-color: #7f8c8d; } /* Devoluciones - Gris */
+.widget-row .large-widget:nth-child(2) { border-top-color: #2ecc71; } /* Reportes - Verde esmeralda */
+
+/* Para hacer el submenu visible por defecto para demostración (quitar para funcionalidad JS) */
+/* .submenu {
+    max-height: 500px;
+} */
+
+/* Responsive (muy básico) */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px; /* Sidebar colapsado */
+    }
+    .sidebar-header h2, .sidebar-header p, .sidebar-nav li a span:not(.icon) {
+        display: none; /* Oculta texto, muestra solo iconos */
+    }
+    .sidebar-nav li a {
+        justify-content: center;
+    }
+    .sidebar-nav li a .icon {
+        margin-right: 0;
+        font-size: 1.5em;
+    }
+    .submenu {
+        /* Ajustar cómo se muestran los submenus en modo colapsado */
+        position: absolute;
+        left: 70px;
+        background-color: #34495e;
+        width: 200px;
+        border-left: 1px solid #2c3e50;
+    }
+    .main-content {
+        margin-left: 0; /* O ajustar según si el sidebar está visible o no */
+    }
+    .dashboard-title h1 {
+        font-size: 1.2em;
+    }
+    .dashboard-title p {
+        font-size: 0.8em;
+    }
+    .widget-row {
+        flex-direction: column;
+    }
+    .large-widget {
+        flex-basis: 100%;
+    }
+}
+
+/* Estilos para el contenido específico de la página (Nueva Caja) */
+.page-content {
+    padding: 25px;
+    background-color: #fff; /* Fondo blanco para el área de contenido principal de la página */
+    margin: 20px; /* Un margen para separarlo del top-bar si es necesario */
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.page-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.page-header h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.page-header .section-icon { /* Icono al lado del título de sección */
+    margin-right: 10px;
+    font-size: 1.2em; /* Ajustar tamaño relativo al h2 */
+    color: #555;
+}
+
+.page-header p {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Estilos para las pestañas de navegación de la página */
+.page-tabs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    display: flex;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.page-tabs li {
+    margin-right: 5px;
+}
+
+.page-tabs li a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #495057;
+    border: 1px solid transparent;
+    border-bottom: none; /* Para que no se solape con el borde principal */
+    border-radius: 4px 4px 0 0;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.page-tabs li a .icon {
+    margin-right: 6px;
+}
+
+.page-tabs li a:hover {
+    background-color: #f0f2f5;
+    color: #007bff;
+}
+
+.page-tabs li a.tab-active {
+    color: #007bff; /* Azul similar al de la imagen */
+    border-color: #dee2e6 #dee2e6 #fff; /* Simula que la pestaña está "sobre" el borde */
+    border-bottom: 2px solid #fff; /* Oculta el borde inferior de la pestaña activa */
+    background-color: #fff; /* Fondo blanco para la pestaña activa */
+    position: relative;
+    top: 2px; /* Para que se alinee con el borde de abajo */
+}
+
+
+/* Estilos para el panel del formulario */
+.form-panel {
+    background-color: #fff; /* Ya está en .page-content, pero por si se usa fuera */
+    padding: 20px;
+    /* border: 1px solid #e0e0e0; No es necesario si page-content ya tiene sombra/borde */
+    border-radius: 5px;
+}
+
+.form-panel h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre los grupos de formulario en una fila */
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1; /* Cada grupo toma el mismo espacio en la fila */
+    min-width: 200px; /* Ancho mínimo antes de que se envuelvan */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="number"], /* si usas number para efectivo */
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box; /* Importante para que el padding no aumente el ancho total */
+    font-size: 0.95em;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-group input[disabled] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input {
+    padding-right: 30px; /* Espacio para el icono dentro del input */
+}
+
+.input-with-icon .icon-field {
+    position: absolute;
+    right: 10px;
+    color: #aaa;
+    font-size: 0.9em; /* Ajusta el tamaño del icono del campo */
+}
+
+
+/* Estilos para los botones del formulario */
+.form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end; /* Alinea botones a la derecha */
+    gap: 10px; /* Espacio entre botones */
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.btn .icon { /* Icono dentro del botón */
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Azul primario */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Gris secundario */
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.form-note {
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: #6c757d;
+    text-align: right; /* Alineado a la derecha como en la imagen */
+}
+.form-note strong {
+    color: #dc3545; /* Rojo para el asterisco, aunque no se vea en la imagen */
+}
+
+/* ... (todos tus estilos anteriores, incluyendo los de .page-content, .form-panel, etc.) ... */
+
+/* Estilos para grupos de radio botones */
+.radio-group {
+    display: flex;
+    gap: 15px; /* Espacio entre opciones de radio */
+    margin-top: 10px; /* Espacio despues del titulo de la seccion (si aplica) */
+    flex-wrap: wrap; /* Para que se ajusten si no caben */
+}
+
+.radio-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre grupos de radio si estan apilados verticalmente */
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal; /* Sobrescribe el font-weight:600 de label general si es necesario */
+    font-size: 0.95em;
+    color: #495057;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+    /* Estilos personalizados para radio buttons son mas complejos y varian por navegador */
+    /* Para un look mas moderno, se suelen ocultar los radios por defecto y estilizar un span o pseudo-elemento */
+    /* Ejemplo basico: */
+    accent-color: #007bff; /* Cambia el color del circulo del radio en navegadores compatibles */
+}
+
+/* Para la seccion de Genero y Lector de Codigo de Barras que van lado a lado */
+.form-group-compound {
+    /* Hereda flex:1 de .form-group si esta dentro de un .form-row para ocupar la mitad */
+    /* O puedes darle un ancho especifico si no esta en un .form-row tipico */
+    /* Por ejemplo: flex-basis: calc(50% - 10px); si .form-row tiene gap: 20px */
+    padding: 15px; /* Un poco de padding interno si es necesario */
+    /* border: 1px solid #eee; Opcional: si quieres un borde para estos sub-paneles */
+    /* border-radius: 4px; */
+}
+
+.form-group-compound h3 { /* Titulos dentro de estos grupos compuestos */
+    font-size: 1.1em; /* Mas pequeño que el h3 principal del .form-panel */
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px; /* Espacio antes de los radio buttons */
+    padding-bottom: 5px;
+    border-bottom: none; /* Quita el borde si el h3 del form-panel ya lo tiene */
+    display: flex;
+    align-items: center;
+}
+.form-group-compound h3 .icon.section-icon {
+    font-size: 1em; /* Ajustar tamaño del icono */
+}
+
+
+/* Para un form-group que deba ocupar todo el ancho dentro de un form-row */
+.form-group-fullwidth {
+    flex-basis: 100% !important; /* Asegura que ocupe todo el ancho */
+    min-width: 100% !important;
+}
+
+/* Acciones principales del formulario, si estan fuera de un form-panel especifico */
+.form-actions-main {
+    margin-top: 30px;
+    padding: 20px; /* Añade padding si esta directamente en .page-content */
+    background-color: #fff; /* Fondo si es necesario */
+    border-top: 1px solid #eee; /* Separador superior */
+    border-radius: 0 0 8px 8px; /* Redondear bordes inferiores si .page-content tiene bordes redondeados */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center; /* Para alinear la nota de texto verticalmente con los botones */
+}
+
+.form-actions-main .form-note {
+    margin-top: 0; /* Resetear margen si esta dentro de flex */
+    margin-right: auto; /* Empuja la nota a la izquierda */
+    text-align: left;
+}
+
+/* Layout para la pagina Nueva Venta */
+.nueva-venta-layout {
+    display: flex;
+    gap: 20px; /* Espacio entre la columna principal y la barra lateral de venta */
+    align-items: flex-start; /* Alinea los items al inicio si tienen alturas diferentes */
+}
+
+.venta-main-column {
+    flex: 3; /* Columna principal toma mas espacio */
+    /* background-color: #fff; Ya deberia estar en .page-content, pero puedes aislarlo */
+    /* padding: 20px; Ya deberia estar en .page-content */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.1); */
+}
+
+.venta-datos-sidebar {
+    flex: 1; /* Barra lateral de datos de venta toma menos espacio */
+    background-color: #f8f9fa; /* Un fondo ligeramente diferente para la barra lateral */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    height: fit-content; /* Para que no se extienda mas de su contenido */
+}
+
+.venta-datos-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.form-group-sidebar {
+    margin-bottom: 18px;
+}
+
+.form-group-sidebar label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.85em;
+}
+
+.form-group-sidebar input[type="text"],
+.form-group-sidebar input[type="number"],
+.form-group-sidebar select {
+    width: 100%;
+    padding: 8px 10px; /* Padding mas pequeño para la barra lateral */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+}
+.form-group-sidebar input:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Para inputs con icono a la derecha en la barra lateral de venta */
+.input-with-icon-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.input-with-icon-right input {
+    padding-right: 35px; /* Espacio para el boton/icono */
+    flex-grow: 1;
+}
+.input-with-icon-right .icon-button {
+    position: absolute;
+    right: 1px; /* Ajustar para que este dentro del borde del input */
+    top: 1px;
+    bottom: 1px;
+    border: none;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 0 8px;
+    cursor: pointer;
+    border-radius: 0 3px 3px 0; /* Redondear solo el borde derecho */
+    font-size: 0.9em;
+}
+.input-with-icon-right .icon-button:hover {
+    background-color: #d8dde2;
+}
+.input-with-icon-right .icon-button .icon {
+    margin-right: 0;
+}
+
+
+/* Bloque de informacion */
+.info-block {
+    background-color: #e9f5ff; /* Un azul claro para el bloque de info */
+    border: 1px solid #bce8f1;
+    color: #31708f;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+.info-block p {
+    margin: 5px 0;
+}
+.info-block a {
+    color: #2c3e50;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Area de busqueda de producto */
+.product-search-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #fff; /* Fondo blanco para el area de busqueda */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.buscar-producto-label {
+    font-weight: 600;
+    color: #007bff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.product-search-area input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* Contenedor y tabla de productos en venta */
+.products-table-container {
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden; /* Para que el borde redondeado afecte a la tabla */
+}
+.products-sale-table th, .products-sale-table td {
+    padding: 10px; /* Ajustar padding si es necesario */
+}
+.products-sale-table .no-products-message {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+    font-style: italic;
+}
+.product-qty-input {
+    width: 60px; /* Ancho para el input de cantidad */
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Resumen de la venta en la barra lateral */
+.sidebar-divider {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+}
+.venta-summary .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+.venta-summary .summary-item span {
+    color: #555;
+}
+.venta-summary .summary-item .summary-value {
+    font-weight: bold;
+    color: #333;
+}
+.venta-summary .summary-discount .summary-value {
+    color: #dc3545; /* Rojo para descuento */
+}
+.venta-summary .summary-total {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 1.15em;
+}
+.venta-summary .summary-total .total-value {
+    font-size: 1.2em; /* Total mas grande */
+    color: #007bff; /* Color de acento para el total */
+}
+.form-note-sidebar {
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Botones de accion al pie de la columna principal de venta */
+.venta-actions-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Estilos para el panel generador de reportes */
+.report-generator-panel {
+    background-color: #fff; /* Fondo blanco para el panel */
+    padding: 30px 40px;     /* Mas padding para darle espacio */
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-top: 20px; /* Espacio despues del page-header */
+    text-align: center; /* Para centrar el contenido del panel como el boton */
+}
+
+.report-generator-panel h3 {
+    font-size: 1.5em; /* Titulo un poco mas grande */
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 30px; /* Buen espacio antes de los controles */
+    font-weight: 600;
+}
+
+.report-filter-group {
+    max-width: 450px; /* Limita el ancho del grupo del select */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px; /* Espacio antes del boton */
+    text-align: left; /* Alinea la etiqueta a la izquierda dentro de su grupo */
+}
+
+.report-filter-group label {
+    /* El estilo de .form-group label ya deberia aplicar */
+    /* Puedes añadir ajustes si es necesario */
+    font-size: 0.9em;
+}
+
+.report-filter-group select {
+    /* El estilo de .form-group select ya deberia aplicar */
+    /* Asegurate de que pueda tomar buen ancho */
+    font-size: 1em; /* Puede ser un poco mas grande para el select principal */
+    padding: 12px 15px;
+}
+
+.btn-generate-report {
+    padding: 12px 25px; /* Boton un poco mas grande */
+    font-size: 1em;
+}
+
+.btn-generate-report .icon {
+    margin-right: 8px;
+}
