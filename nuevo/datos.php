@@ -92,7 +92,11 @@
                             <div class="form-group">
                                 <label for="empresa_tipo_documento">Tipo de documento</label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="empresa_tipo_documento" name="empresa_tipo_documento" value="">
+                                    <select id="empresa_tipo_documento" name="empresa_tipo_documento">
+                                        <option value="dni">1 - INE</option>
+                                        <option value="cedula" selected>2 - Cedula</option>
+                                        <option value="otro">3 - Otro</option>
+                                    </select>
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
