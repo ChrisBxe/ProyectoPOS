@@ -101,10 +101,6 @@
                     </a>
                     <a href="#" class="widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
-                        <h3>CLIENTES</h3>
-                    </a>
-                    <a href="#" class="widget">
-                        <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>MOVIMIENTOS</h3>
                     </a>
                     <a href="#" class="widget">
