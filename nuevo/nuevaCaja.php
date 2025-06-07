@@ -1,3 +1,19 @@
+<?php
+// nuevo/nuevaCaja.php
+    if(isset($_POST['usuario'])){
+        $cnx = // Aquí ba la conección a la base de datos;
+        $numCaja = $_POST['numero_caja'];
+        $nombreCaja = $_POST['nombre_codigo_caja'];
+        $estadoCaja = $_POST['estado_caja'];
+        $efectivoCaja = $_POST['efectivo_caja'];
+        $query = "INSERT INTO `cajas`(`NumeroCaja`, `NombreCodigoCaja`, `EstadoCaja`, `EfectivoCaja`) VALUES ('$numCaja', '$nombreCaja', '$estadoCaja', '$efectivoCaja')";
+        echo "<script>alert('Usuario agregado')</script>";
+        echo "<a href = 'index.php'>Regresar</a>";
+        die();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
