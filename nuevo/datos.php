@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+    
 <head>
     <meta charset="UTF-TF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,7 +86,7 @@
                     <h2><span class="icon section-icon"></span> DATOS DE LA EMPRESA</h2> <p>En el modulo EMPRESA usted puede registrar los datos de su compañia, negocio u organizacion. Una vez que registre los datos de su empresa solo podra actualizarlos en caso quiera cambiar algun dato, ya no sera necesario registrarlos nuevamente.</p>
                 </div>
 
-                <form action="#" method="post">
+                <form action="guardarEmpresa.php" method="post">
                     <div class="form-panel">
                         <h3><span class="icon section-icon"></span> Datos de la empresa</h3>
                         <div class="form-row">

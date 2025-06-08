@@ -93,7 +93,7 @@
                     </ul>
                 </nav>
 
-                <form action="#" method="post">
+                <form action="guardarMovimiento.php" method="post">
                     <div class="form-panel">
                         <h3><span class="icon section-icon">ℹ️</span> Informacion del movimiento</h3>
                         <div class="form-row">

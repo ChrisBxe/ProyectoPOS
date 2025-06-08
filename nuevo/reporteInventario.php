@@ -1,3 +1,32 @@
+<?php
+include 'conexionbd.php';
+
+$ordenar = $_GET['ordenar_reporte'] ?? 'nombre_asc';
+
+switch ($ordenar) {
+    case 'nombre_asc':
+        $orderBy = "nombre_producto ASC";
+        break;
+    case 'nombre_desc':
+        $orderBy = "nombre_producto DESC";
+        break;
+    case 'stock_asc':
+        $orderBy = "stock_producto ASC";
+        break;
+    case 'stock_desc':
+        $orderBy = "stock_producto DESC";
+        break;
+    default:
+        $orderBy = "nombre_producto ASC";
+}
+
+$sql = "SELECT id_producto, nombre_producto, descripcion, stock_producto, precio FROM productos ORDER BY $orderBy";
+$result = $conexion->query($sql);
+if ($result === false) {
+    die("Error en la consulta: " . $conexion->error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -88,21 +117,43 @@
                 <div class="report-generator-panel">
                     <h3>Generar reporte de inventario personalizado</h3>
                     <div class="form-group report-filter-group">
-                        <label for="ordenar_reporte">Ordenar por</label>
-                        <select id="ordenar_reporte" name="ordenar_reporte">
-                            <option value="nombre_asc" selected>Nombre (ascendente)</option>
-                            <option value="nombre_desc">Nombre (descendente)</option>
-                            <option value="stock_asc">Stock (ascendente)</option>
-                            <option value="stock_desc">Stock (descendente)</option>
-                        </select>
-                    </div>
-                    <div class="report-actions">
-                        <button type="button" class="btn btn-primary btn-generate-report">
-                            <span class="icon"></span> GENERAR REPORTE
+                        <form method="GET" action="reporteInventario.php">
+                            <label for="ordenar_reporte">Ordenar por</label>
+                            <select id="ordenar_reporte" name="ordenar_reporte">
+                                <option value="nombre_asc" <?php if (($ordenar ?? '') == 'nombre_asc') echo 'selected'; ?>>Nombre (ascendente)</option>
+                                <option value="nombre_desc" <?php if (($ordenar ?? '') == 'nombre_desc') echo 'selected'; ?>>Nombre (descendente)</option>
+                                <option value="stock_asc" <?php if (($ordenar ?? '') == 'stock_asc') echo 'selected'; ?>>Stock (ascendente)</option>
+                                <option value="stock_desc" <?php if (($ordenar ?? '') == 'stock_desc') echo 'selected'; ?>>Stock (descendente)</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-generate-report">
+                                GENERAR REPORTE
                         </button>
                     </div>
                 </div>
             </section>
+            <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Producto</th>
+            <th>Descripción</th>
+            <th>Stock</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($row['id_producto']); ?></td>
+            <td><?php echo htmlspecialchars($row['nombre_producto']); ?></td>
+            <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
+            <td><?php echo htmlspecialchars($row['stock_producto']); ?></td>
+            <td><?php echo htmlspecialchars(number_format($row['precio'], 2)); ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </tbody>
+</table>
+
             </main>
     </div>
 </body>

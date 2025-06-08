@@ -11,8 +11,8 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <img src="" alt="Avatar" class="avatar">
-                <h2>*usuario logeado</h2>
-                <p>*rol logeado*</p>
+                <h2><?php echo $usuario; ?></h2>
+                <p><?php echo $rol; ?></p>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -200,5 +200,36 @@
             </div>
         </main>
     </div>
+    <script>
+document.getElementById('codigo_producto_venta').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        let codigo = this.value.trim();
+
+        if (codigo === '') {
+            alert("Ingrese un código de producto");
+            return;
+        }
+
+        fetch('buscarProducto.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'codigo=' + encodeURIComponent(codigo)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                
+                console.log("Producto encontrado:", data);
+                
+            }
+        });
+    }
+});
+</script>
+</body>
+
 </body>
 </html>

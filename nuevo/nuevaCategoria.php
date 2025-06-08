@@ -95,7 +95,7 @@
 
                 <div class="form-panel">
                     <h3><span class="icon section-icon"></span> Informacion de la categoria</h3>
-                    <form action="#" method="post">
+                    <form action="registrarCategoria.php" method="post">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nombre_categoria">Nombre de la categoria</label>
