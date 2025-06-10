@@ -52,7 +52,6 @@ if ($result === false) {
                             <li><a href="nuevaCaja.php"><span class="icon"></span> Nueva caja</a></li>
                             <li><a href="nuevaCategoria.php"><span class="icon"></span> Nueva categoria</a></li>
                             <li><a href="nuevoUsuario.php"><span class="icon"></span> Nuevo usuario</a></li>
-                            <li><a href="nuevoCliente.php"><span class="icon"></span> Nuevo cliente</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
