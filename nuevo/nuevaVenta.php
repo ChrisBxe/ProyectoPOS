@@ -95,6 +95,9 @@
                     <div class="product-search-area">
                         <label for="codigo_producto_venta" class="buscar-producto-label"><span class="icon"></span> BUSCAR PRODUCTO</label>
                         <input type="text" id="codigo_producto_venta" name="codigo_producto_venta" placeholder="Codigo de producto">
+                        <button type="submit" class="btn btn-primary btn-generate-report">
+                            <span class="icon">🔍</span> BUSCAR
+                        </button>
                     </div>
 
                     <div class="products-table-container">
