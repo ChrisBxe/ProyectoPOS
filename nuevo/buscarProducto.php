@@ -1,21 +1,3 @@
-<?php
-include 'conexionbd.php';
-
-$codigo = $_POST['codigo'];
-
-$sql = "SELECT * FROM producto WHERE codigo_barra = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $codigo);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($producto = $result->fetch_assoc()) {
-    echo json_encode($producto);
-} else {
-    echo json_encode(["error" => "Producto no encontrado"]);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -105,6 +87,16 @@ if ($producto = $result->fetch_assoc()) {
                         <li><a href="buscarProducto.php"  class="tab-active"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>
                 </nav>
+                <div class="report-generator-panel"> <form action="#" method="post">
+                        <div class="form-group report-filter-group"> <label for="codigo_venta" class="sr-only">Introduzca el codigo de producto</label>
+                            <input type="text" id="codigo_venta" name="codigo_venta" placeholder="Introduzca el codigo de producto">
+                        </div>
+                        <div class="report-actions">
+                            <button type="submit" class="btn btn-primary btn-generate-report">
+                                <span class="icon">🔍</span> BUSCAR
+                            </button>
+                        </div>
+                    </div>
                 <table class="data-table">
                         <thead>
                             <tr>

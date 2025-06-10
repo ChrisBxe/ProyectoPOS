@@ -100,7 +100,7 @@
                                 <span class="icon">🔍</span> BUSCAR
                             </button>
                         </div>
-                    </form>
+                    </div>
                     <div class="table-container">
                     <table class="data-table">
                         <thead>
