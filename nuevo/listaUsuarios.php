@@ -86,6 +86,31 @@
                         <li><a href="listaUsuarios.php" class="tab-active"><span class="icon"></span> LISTA DE USUARIOS</a></li>
                     </ul>
                 </nav>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>DOCUMENTO</th>
+                                <th>CARGO</th>
+                                <th>NOMBRE</th>
+                                <th>USUARIO</th>
+                                <th>TELEFONO</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**</td>
+                                <td>*tipo + el numero de documento*</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
+                            </tr>
+                            </tbody>
+                    </table>
             </section>
         </main>
     </div>

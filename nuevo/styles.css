@@ -930,3 +930,110 @@ body {
     background-color: #3498db;
     color: #fff;
 }
+
+/* --- Estilos Generales para Tablas de Datos --- */
+
+/* Contenedor para la tabla, permite scroll horizontal en pantallas pequeñas */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Estilo base para todas las tablas de datos */
+.data-table {
+    width: 100%;
+    border-collapse: collapse; /* Une los bordes de las celdas */
+    font-size: 0.9em;
+}
+
+/* Estilo para todas las celdas (th y td) */
+.data-table th,
+.data-table td {
+    padding: 12px 15px; /* Espaciado interno generoso */
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #e9eef2; /* Linea sutil para separar filas */
+}
+
+/* Estilo especifico para la cabecera de la tabla */
+.data-table thead th {
+    background-color: #f8f9fa; /* Fondo gris claro para la cabecera */
+    font-weight: 600;
+    color: #495057;
+    border-bottom-width: 2px; /* Borde inferior mas grueso */
+    text-transform: uppercase; /* Mayusculas para titulos */
+    font-size: 0.8em;
+    letter-spacing: 0.5px;
+}
+
+/* Efecto hover para las filas del cuerpo de la tabla para mejorar UX */
+.data-table tbody tr:hover {
+    background-color: #f0f2f5;
+}
+
+/* Estilos para la columna de Estado */
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85em;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: rgba(40, 167, 69, 0.1); /* Fondo verde suave */
+    color: #28a745; /* Texto verde */
+}
+
+.status-inactive {
+    background-color: rgba(220, 53, 69, 0.1); /* Fondo rojo suave */
+    color: #dc3545; /* Texto rojo */
+}
+
+/* Estilos para los iconos de accion (Actualizar, Eliminar) */
+.data-table td:has(.action-icon) {
+    text-align: center; /* Centra los iconos en su celda */
+}
+
+.action-icon {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.2em; /* Tamaño del icono */
+    margin: 0 5px;
+    transition: transform 0.2s ease;
+}
+
+.action-icon .icon {
+    margin-right: 0; /* Quita el margen derecho del span del icono */
+    display: block; /* Para centrar mejor */
+}
+
+.action-icon:hover {
+    transform: scale(1.2); /* Agranda el icono al pasar el cursor */
+}
+
+.action-edit {
+    color: #007bff; /* Azul para editar */
+}
+
+.action-delete {
+    color: #dc3545; /* Rojo para eliminar */
+}
+
+/* Alineacion especifica para columnas numericas (opcional, pero recomendado) */
+.data-table th:nth-child(1), /* NUMERO DE CAJA */
+.data-table td:nth-child(1),
+.data-table th:nth-child(3), /* EFECTIVO */
+.data-table td:nth-child(3) {
+    text-align: right;
+}
+
+.data-table th:nth-child(5), /* ACTUALIZAR */
+.data-table th:nth-child(6), /* ELIMINAR */
+.data-table td:nth-child(5),
+.data-table td:nth-child(6) {
+    text-align: center;
+}

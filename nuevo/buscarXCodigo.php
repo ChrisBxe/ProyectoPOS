@@ -91,6 +91,41 @@
                             <li><a href="buscarXCodigo.php" class="tab-active"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
                         </ul>
                     </nav>
+                    <div class="report-generator-panel"> <form action="#" method="post">
+                        <div class="form-group report-filter-group"> <label for="codigo_venta" class="sr-only">Introduzca el codigo de la venta</label>
+                            <input type="text" id="codigo_venta" name="codigo_venta" placeholder="Introduzca el codigo de la venta">
+                        </div>
+                        <div class="report-actions">
+                            <button type="submit" class="btn btn-primary btn-generate-report">
+                                <span class="icon">🔍</span> BUSCAR
+                            </button>
+                        </div>
+                    </form>
+                    <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NUMERO VENTA</th>
+                                <th>FECHA</th>
+                                <th>VENDEDOR</th>
+                                <th>TOTAL</th>
+                                <th>ESTADO</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td><span class="status status-active">REALIZADA</span></td>
+                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
+                            </tr>
+                            </tbody>
+                    </table>
             </div>
         </main>
     </div>

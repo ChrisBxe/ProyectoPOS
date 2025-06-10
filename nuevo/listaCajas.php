@@ -87,7 +87,29 @@
                         <li><a href="listaCajas.php" class="tab-active"><span class="icon"></span> LISTA DE CAJAS</a></li>
                     </ul>
                 </nav>
-            </section>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>NUMERO DE CAJA</th>
+                                <th>NOMBRE / CODIGO</th>
+                                <th>EFECTIVO</th>
+                                <th>ESTADO</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td><span class="status status-active">Habilitada</span></td>
+                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </section>      
             </main>
     </div>
 </body>

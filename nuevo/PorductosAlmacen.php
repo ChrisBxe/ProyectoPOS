@@ -84,8 +84,31 @@
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="porductosAlmacen.php"  class="tab-active"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
                         <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
+                        <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>
                 </nav>
+                <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>CODIGO BARRAS</th>
+                                <th>PRECIO</th>
+                                <th>DISPONIBILIDAD</th>
+                                <th>VENCIMIENTO</th>
+                                <th>ESTADO</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td><span class="status status-active">HABILITADO</span></td>
+                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
+                            </tr>
+                            </tbody>
+                    </table>
             </section>
         </main>
     </div>

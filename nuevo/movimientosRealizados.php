@@ -85,6 +85,30 @@
                         <li><a href="movimientosRealizados.php" class="tab-active"><span class="icon">🧾</span> MOVIMIENTOS REALIZADOS</a></li>
                     </ul>
                 </nav>
+                <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>CAJA</th>
+                                <th>FECHA Y HORA</th>
+                                <th>C.ANTERIOR</th>
+                                <th>CANTIDAD</th>
+                                <th>C.ACTUAL</th>
+                                <th>USUARIO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                                <td>**</td>
+                            </tr>
+                            </tbody>
+                    </table>
             </section>
         </main>
     </div>

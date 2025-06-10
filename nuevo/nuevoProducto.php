@@ -89,6 +89,7 @@
                         <li><a href="nuevoProducto.php" class="tab-active"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
                         <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
+                        <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>
                 </nav>
 
