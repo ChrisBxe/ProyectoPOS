@@ -66,34 +66,66 @@
                     </li>
             </nav>
         </aside>
-        <main class="main-content">
-            <header class="top-bar">
-                <div class="dashboard-title">
-                    <h1>VENTAS</h1>
+        <section class="page-content">
+                <div class="page-header">
+                    <h2><span class="icon section-icon">💲</span> REPORTES DE VENTAS</h2>
+                    <p>En el modulo REPORTES podra ver, generar e imprimir reportes de ventas en formato PDF.</p>
                 </div>
-                <div class="user-actions">
-                    <span class="icon">POWER</span>
-                </div>
-            </header>
 
-            <div class="page-content nueva-venta-layout">
-                <div class="venta-main-column">
-                    <div class="page-header">
-                        <h2><span class="icon section-icon"></span> NUEVA VENTA</h2>
-                        <p>En el modulo VENTAS podra realizar ventas de productos, puede usar lector de codigo de barras o hacerlo de forma manual digitando el codigo del producto (debe de configurar estas opciones en ajustes de su cuenta). Tambien puede ver las ventas realizadas y buscar ventas en el sistema.</p>
+                <div class="stats-panel">
+                    <h3>Estadisticas de ventas de hoy *dia que se inicia*</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">VENTAS REALIZADAS</span>
+                            <span class="stat-value"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">TOTAL EN VENTAS</span>
+                            <span class="stat-value"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">COSTO DE VENTAS</span>
+                            <span class="stat-value"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">GANANCIAS</span>
+                            <span class="stat-value stat-profit"></span>
+                        </div>
                     </div>
+                    <div class="panel-actions">
+                        <button type="button" class="btn btn-outline-primary">
+                            <span class="icon">🖨️</span> IMPRIMIR
+                        </button>
+                    </div>
+                </div>
 
-                    <nav class="page-tabs venta-tabs">
-                        <ul>
-                            <li><a href="nuevaVenta.php"><span class="icon"></span> NUEVA VENTA</a></li>
-                            <li><a href="ventasRealizadas.php" class="tab-active"><span class="icon"></span> VENTAS REALIZADAS</a></li>
-                            <li><a href="ventasPendientes.php"><span class="icon"></span> VENTAS PENDIENTES</a></li>
-                            <li><a href="buscarXFecha.php"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
-                            <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
-                        </ul>
-                    </nav>
-            </div>
-        </main>
+                <div class="report-generator-panel">
+                    <h3>Generar reporte personalizado</h3>
+                    <form action="#" method="post">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fecha_inicial">Fecha inicial (dia/mes/año)</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="fecha_inicial" name="fecha_inicial" placeholder="dd/mm/aaaa">
+                                    <span class="icon-field">📅</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_final">Fecha final (dia/mes/año)</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="fecha_final" name="fecha_final" placeholder="dd/mm/aaaa">
+                                    <span class="icon-field">📅</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button type="submit" class="btn btn-primary btn-generate-report">
+                                <span class="icon">⚙️</span> GENERAR REPORTE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        </section>
     </div>
 </body>
 </html>
