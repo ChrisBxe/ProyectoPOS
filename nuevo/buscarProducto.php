@@ -108,21 +108,25 @@ if ($producto = $result->fetch_assoc()) {
                 <table class="data-table">
                         <thead>
                             <tr>
+                                <th>IMAGEN</th>
                                 <th>CODIGO BARRAS</th>
                                 <th>PRECIO</th>
                                 <th>DISPONIBILIDAD</th>
                                 <th>VENCIMIENTO</th>
                                 <th>ESTADO</th>
+                                <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td><img src="" alt="Producto" class="product-image"></td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td><span class="status status-active">HABILITADO</span></td>
+                                <td><a href="actualizarProducto.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

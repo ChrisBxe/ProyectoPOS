@@ -75,10 +75,6 @@
                 </div>
             </header>
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVA CATEGORIA</h2> <p>En el modulo CATEGORIA usted podra registrar las categorias que serviran para agregar productos y tambien podra ver los productos que pertenecen a una categoria determinada. Ademas de lo antes mencionado, puede actualizar los datos de las categorias, realizar busquedas de categorias o eliminarlas si asi lo desea.</p>
-                </div>
-
                 <nav class="page-tabs">
                     <ul>
                         <li><a href="nuevaCategoria.php"><span class="icon"></span> NUEVA CATEGORIA</a></li>
@@ -93,6 +89,7 @@
                                 <th>NOMBRE</th>
                                 <th>UBICACION</th>
                                 <th>ESTADO</th>
+                                <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
@@ -102,6 +99,7 @@
                                 <td>**</td>
                                 <td>**</td>
                                 <td><span class="status status-active">Habilitada</span></td>
+                                <td><a href="actualizarCategoria.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

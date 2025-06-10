@@ -68,18 +68,13 @@
         <main class="main-content">
             <header class="top-bar">
                 <div class="dashboard-title">
-                    <h1>ADMINISTRACION</h1>
+                    <h1>PRODUCTOS</h1>
                 </div>
                 <div class="user-actions">
                     <span class="icon">POWER</span>
                 </div>
             </header>
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVO PRODUCTO</h2>
-                    <p>En el modulo PRODUCTOS podra agregar nuevos productos al sistema, actualizar datos de los productos, eliminar o actualizar la imagen de los productos, imprimir codigos de barras o SKU de cada producto, buscar productos en el sistema, ver todos los productos en almacen, ver los productos mas vendido y filtrar productos por categoria.</p>
-                </div>
-
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
@@ -90,21 +85,25 @@
                 <table class="data-table">
                         <thead>
                             <tr>
+                                <th>IMAGEN</th>
                                 <th>CODIGO BARRAS</th>
                                 <th>PRECIO</th>
                                 <th>DISPONIBILIDAD</th>
                                 <th>VENCIMIENTO</th>
                                 <th>ESTADO</th>
+                                <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td><img src="" alt="Producto" class="product-image"></td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
                                 <td><span class="status status-active">HABILITADO</span></td>
+                                <td><a href="actualizarProducto.php" class="action-icon action-update" title="Actualizar"><span class="icon">✏️</span></a></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

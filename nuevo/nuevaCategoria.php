@@ -117,7 +117,6 @@
                             <button type="reset" class="btn btn-secondary"><span class="icon"></span> LIMPIAR</button>
                             <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
                         </div>
-                        <p class="form-note">Los campos marcados con <strong>*</strong> son obligatorios</p>
                     </form>
                 </div>
             </section>

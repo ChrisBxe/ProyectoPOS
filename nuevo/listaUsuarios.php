@@ -75,11 +75,6 @@
                 </div>
             </header>
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVO USUARIO</h2>
-                    <p>En el modulo USUARIO podra registrar nuevos usuarios en el sistema ya sea un administrador o un cajero, tambien podra ver la lista de usuarios registrados, buscar usuarios en el sistema, actualizar datos de otros usuarios y los suyos.</p>
-                </div>
-
                 <nav class="page-tabs">
                     <ul>
                         <li><a href="nuevoUsuario.php"><span class="icon"></span> NUEVO USUARIO</a></li>
@@ -96,6 +91,7 @@
                                 <th>NOMBRE</th>
                                 <th>USUARIO</th>
                                 <th>TELEFONO</th>
+                                <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
@@ -107,6 +103,7 @@
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
+                                <td><a href="actualizarUsuario.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

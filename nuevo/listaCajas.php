@@ -76,11 +76,6 @@
             </header>
 
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVA CAJA</h2>
-                    <p>En el modulo CAJA usted podra registrar cajas de ventas en el sistema para poder realizar ventas, ademas podra actualizar los datos de las cajas de venta, realizar busquedas de cajas o eliminarlas si lo desea.</p>
-                </div>
-
                 <nav class="page-tabs">
                     <ul>
                         <li><a href="nuevaCaja.php"><span class="icon"></span> NUEVA CAJA</a></li> 
@@ -95,6 +90,7 @@
                                 <th>NOMBRE / CODIGO</th>
                                 <th>EFECTIVO</th>
                                 <th>ESTADO</th>
+                                <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
@@ -104,6 +100,7 @@
                                 <td>**</td>
                                 <td>**</td>
                                 <td><span class="status status-active">Habilitada</span></td>
+                                <td><a href="actualizarCaja.php" class="action-icon action-update" title="Actualizar"><span class="icon">✏️</span></a></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

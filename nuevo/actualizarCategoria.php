@@ -68,46 +68,45 @@
         <main class="main-content">
             <header class="top-bar">
                 <div class="dashboard-title">
-                    <h1>PRODUCTOS</h1>
+                    <h1>ADMINISTRACION</h1>
                 </div>
                 <div class="user-actions">
                     <span class="icon">POWER</span>
                 </div>
             </header>
             <section class="page-content">
-                <nav class="page-tabs"> <ul>
-                        <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
-                        <li><a href="porductosAlmacen.php"  class="tab-active"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
-                        <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
-                        <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
-                    </ul>
-                </nav>
-                <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>IMAGEN</th>
-                                <th>CODIGO BARRAS</th>
-                                <th>PRECIO</th>
-                                <th>DISPONIBILIDAD</th>
-                                <th>VENCIMIENTO</th>
-                                <th>ESTADO</th>
-                                <th>ACTUALIZAR</th>
-                                <th>ELIMINAR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><img src="" alt="Producto" class="product-image"></td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">HABILITADO</span></td>
-                                <td><a href="actualizarProducto.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
-                                <td><a href="confirmacionEliminacion.php" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="form-panel">
+                    <h3><span class="icon section-icon"></span> Informacion de la categoria</h3>
+                    <form action="registrarCategoria.php" method="post">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre_categoria">Nombre de la categoria</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="nombre_categoria" name="nombre_categoria" placeholder="Ej: Bebidas">
+                                    <span class="icon-field"></span> </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ubicacion_categoria">Pasillo o ubicacion de la categoria</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="ubicacion_categoria" name="ubicacion_categoria" placeholder="Ej: Pasillo 2, Estante A">
+                                    <span class="icon-field"></span> </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"> <label for="estado_categoria">Estado de la categoria</label>
+                                <select id="estado_categoria" name="estado_categoria">
+                                    <option value="habilitada" selected>Habilitada</option>
+                                    <option value="deshabilitada">Deshabilitada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
+                        </div>
+                    </form>
+                </div>
             </section>
         </main>
     </div>

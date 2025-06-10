@@ -79,20 +79,6 @@
                     <span class="icon">POWER</span>
                 </div>
             </header>
-            <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVO PRODUCTO</h2>
-                    <p>En el modulo PRODUCTOS podra agregar nuevos productos al sistema, actualizar datos de los productos, eliminar o actualizar la imagen de los productos, imprimir codigos de barras o SKU de cada producto, buscar productos en el sistema, ver todos los productos en almacen, ver los productos mas vendido y filtrar productos por categoria.</p>
-                </div>
-
-                <nav class="page-tabs"> <ul>
-                        <li><a href="nuevoProducto.php" class="tab-active"><span class="icon"></span> NUEVO PRODUCTO</a></li>
-                        <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
-                        <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
-                        <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
-                    </ul>
-                </nav>
-
                 <form action="#" method="post" enctype="multipart/form-data">
                     <div class="form-panel">
                         <h3><span class="icon section-icon"><y_bin_226></span> Codigo</h3>
@@ -249,20 +235,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Foto o imagen del producto</h3>
-                        <div class="form-group form-group-fullwidth">
-                            <label for="foto_producto">Seleccionar archivo</label>
-                            <input type="file" id="foto_producto" name="foto_producto" class="file-input">
-                            <p class="file-input-note">Tipos de archivos permitidos: JPG, JPEG, PNG. Tamaño maximo 3MB. Resolucion recomendada 300px x 300px o superior manteniendo el aspecto cuadrado (1:1).</p>
-                        </div>
-                    </div>
-
                     <div class="form-actions-main">
-                        <button type="reset" class="btn btn-secondary"><span class="icon"></span> LIMPIAR</button>
                         <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
-                        <p class="form-note">Los campos marcados con <strong>*</strong> son obligatorios</p>
                     </div>
                 </form>
             </section>

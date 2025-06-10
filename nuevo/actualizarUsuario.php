@@ -80,18 +80,6 @@
                 </div>
             </header>
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVO USUARIO</h2>
-                    <p>En el modulo USUARIO podra registrar nuevos usuarios en el sistema ya sea un administrador o un cajero, tambien podra ver la lista de usuarios registrados, buscar usuarios en el sistema, actualizar datos de otros usuarios y los suyos.</p>
-                </div>
-
-                <nav class="page-tabs">
-                    <ul>
-                        <li><a href="nuevoUsuario.php" class="tab-active"><span class="icon"></span> NUEVO USUARIO</a></li>
-                        <li><a href="listaUsuarios.php"><span class="icon"></span> LISTA DE USUARIOS</a></li>
-                    </ul>
-                </nav>
-
                 <form action="agregarUsuario.php" method="post">
                     <div class="form-panel">
                         <h3><span class="icon section-icon"></span> Informacion personal</h3>
@@ -232,7 +220,6 @@
                     </div>
 
                     <div class="form-actions-main">
-                        <button type="reset" class="btn btn-secondary"><span class="icon"></span> LIMPIAR</button>
                         <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
                     </div>
                 </form>
