@@ -87,13 +87,13 @@
 
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php" class="tab-active"><span class="icon"></span> NUEVO PRODUCTO</a></li>
-                        <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
+                        <li><a href="productosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
                         <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
                         <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>
                 </nav>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="agregarProducto.php" method="POST" enctype="multipart/form-data">
                     <div class="form-panel">
                         <h3><span class="icon section-icon"><y_bin_226></span> Codigo</h3>
                         <div class="form-row">
@@ -234,8 +234,7 @@
                                  <div class="input-with-icon">
                                     <select id="categoria_producto" name="categoria_producto">
                                         <option value="" disabled selected>Seleccione una opcion</option>
-                                        <option value="cat1">Categoria Ejemplo 1</option>
-                                        <option value="cat2">Categoria Ejemplo 2</option>
+                                        <option value="1">General</option>
                                     </select>
                                     <span class="icon-field"></span>
                                 </div>

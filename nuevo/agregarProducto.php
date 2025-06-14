@@ -1,27 +1,18 @@
 <?php
-include("conexionbd.php"); 
+include("conexionbd.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    $codigo = $_POST['codigo_barras'];
     $nombre = $_POST['nombre_producto'];
+    $descripcion = $_POST['descripcion_producto'] ?? '';
     $stock = $_POST['stock_existencias'];
-    $minimo = $_POST['stock_minimo'];
-    $presentacion = $_POST['presentacion_producto'];
+    $stock_minimo = $_POST['stock_minimo'];
     $precio_compra = $_POST['precio_compra'];
     $precio_venta = $_POST['precio_venta'];
-    $precio_mayoreo = $_POST['precio_mayoreo'];
-    $descuento = $_POST['descuento_venta'];
-    $marca = $_POST['marca_producto'];
-    $modelo = $_POST['modelo_producto'];
-    $vence = $_POST['vence_producto'];
-    $fecha_venc = $_POST['fecha_vencimiento'];
-    $unidad_garantia = $_POST['unidad_tiempo_garantia'];
-    $tiempo_garantia = $_POST['tiempo_garantia'];
     $categoria = $_POST['categoria_producto'];
+    $fecha_venc = $_POST['fecha_vencimiento'];
+    $garantia = $_POST['tiempo_garantia'];
     $estado = $_POST['estado_producto'];
 
-    
     $foto = $_FILES['foto_producto'];
     $nombre_foto = '';
     if ($foto['error'] === 0) {
@@ -30,27 +21,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nombre_foto = uniqid() . "_" . basename($foto['name']);
             $ruta_destino = "img_productos/" . $nombre_foto;
             move_uploaded_file($foto['tmp_name'], $ruta_destino);
-        } else {
-            echo "Archivo no válido o excede el tamaño permitido.";
-            exit;
         }
     }
 
-    
     $sql = "INSERT INTO productos (
-                codigo_barras, nombre, stock_existencias, stock_minimo,
-                presentacion, precio_compra, precio_venta, precio_mayoreo,
-                descuento_venta, marca, modelo, vence, fecha_vencimiento,
-                unidad_garantia, tipo_garantia, categoria, estado, foto
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        nombre_producto, descripcion, stock, stock_minimo,
+        precio_compra, precio_venta, id_categoria, fecha_vencimiento,
+        garantia_meses, estado, imagen
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ssiiddddddssssssss",
-        $codigo, $nombre, $stock, $minimo, $presentacion,
-        $precio_compra, $precio_venta, $precio_mayoreo, $descuento,
-        $marca, $modelo, $vence, $fecha_venc, $unidad_garantia,
-        $tiempo_garantia, $categoria, $estado, $nombre_foto
-    );
+    
+    if (!$stmt) {
+        die("Error en prepare: " . $conexion->error);
+    }
+
+    $stmt->bind_param("ssiidddssis", $nombre, $descripcion, $stock, $stock_minimo, $precio_compra, $precio_venta, $categoria, $fecha_venc, $garantia, $estado, $nombre_foto);
 
     if ($stmt->execute()) {
         echo "<script>alert('Producto agregado exitosamente'); window.location='nuevoProducto.php';</script>";

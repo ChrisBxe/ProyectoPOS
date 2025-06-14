@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    $sql = "INSERT INTO categoria (nombre, ubicacion, estado) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO categorias (nombre_categoria, ubicacion, estado) VALUES (?, ?, ?)";
 
-    if ($stmt = $conn->prepare($sql)) {
+    if ($stmt = $conexion->prepare($sql)) {
         $stmt->bind_param("sss", $nombre, $ubicacion, $estado);
 
         if ($stmt->execute()) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Error en la preparación de la consulta.'); window.history.back();</script>";
     }
 
-    $conn->close();
+    $conexion->close();
 } else {
     
     header("Location: nuevaCategoria.php");

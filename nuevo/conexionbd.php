@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$puerto = "3307"; 
+$puerto = "3306"; 
 $usuario = "root";
-$contrasena = "usbw"; 
+$contrasena = ""; 
 $base_datos = "ropa";
 
 $conexion = new mysqli($host, $usuario, $contrasena, $base_datos, $puerto);
