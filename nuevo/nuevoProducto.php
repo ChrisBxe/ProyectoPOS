@@ -195,9 +195,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="fecha_vencimiento">Fecha de vencimiento (dia/mes/año)</label>
+                                <label for="fecha_vencimiento">Fecha de vencimiento (año-mes-dia)</label>
                                  <div class="input-with-icon">
-                                    <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" placeholder="DD/MM/AAAA">
+                                    <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" placeholder="AAAA-MM-DD" disabled>
                                     <span class="icon-field"></span>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                                 <label for="tiempo_garantia">Tiempo de garantia</label>
                                 <div class="input-with-icon">
                                     <select id="tiempo_garantia" name="tiempo_garantia">
-                                        <option value="N/A" selected>1 - N/A</option>
+                                        <option value="N/A" selected>N/A</option>
                                         <option value="dias">Dias</option>
                                         <option value="meses">Meses</option>
                                         <option value="anos">Años</option>

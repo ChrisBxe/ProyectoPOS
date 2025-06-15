@@ -172,18 +172,6 @@
                         </div>
                     </div>
 
-
-                    <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Caja de ventas</h3>
-                        <div class="form-row">
-                            <div class="form-group form-group-fullwidth"> <label for="caja_ventas">Caja de ventas asignada</label>
-                                <select id="caja_ventas" name="caja_ventas">
-                                    <option value="" disabled selected>Seleccione una opcion</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="form-panel">
                         <h3><span class="icon section-icon"></span> Informacion de la cuenta</h3>
                          <div class="form-row">

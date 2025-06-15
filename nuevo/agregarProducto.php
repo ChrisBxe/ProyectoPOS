@@ -2,6 +2,7 @@
 include("conexionbd.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $codigo = $_POST['codigo_producto'];
     $nombre = $_POST['nombre_producto'];
     $descripcion = $_POST['descripcion_producto'] ?? '';
     $stock = $_POST['stock_existencias'];
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $sql = "INSERT INTO productos (
-        nombre_producto, descripcion, stock, stock_minimo,
+        codigo_producto,nombre_producto, descripcion, stock, stock_minimo,
         precio_compra, precio_venta, id_categoria, fecha_vencimiento,
         garantia_meses, estado, imagen
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error en prepare: " . $conexion->error);
     }
 
-    $stmt->bind_param("ssiidddssis", $nombre, $descripcion, $stock, $stock_minimo, $precio_compra, $precio_venta, $categoria, $fecha_venc, $garantia, $estado, $nombre_foto);
+    $stmt->bind_param("ssiidddssis",$codigo, $nombre, $descripcion, $stock, $stock_minimo, $precio_compra, $precio_venta, $categoria, $fecha_venc, $garantia, $estado, $nombre_foto);
 
     if ($stmt->execute()) {
         echo "<script>alert('Producto agregado exitosamente'); window.location='nuevoProducto.php';</script>";
