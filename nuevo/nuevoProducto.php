@@ -183,27 +183,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Vencimiento del producto</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Aplica vencimiento?</label>
-                                <div class="radio-group">
-                                    <label class="radio-label"><input type="radio" name="vence_producto" value="si"> Si vence</label>
-                                    <label class="radio-label"><input type="radio" name="vence_producto" value="no" checked> No vence</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="fecha_vencimiento">Fecha de vencimiento (año-mes-dia)</label>
-                                 <div class="input-with-icon">
-                                    <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" placeholder="AAAA-MM-DD" disabled>
-                                    <span class="icon-field"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     <div class="form-panel">
                         <h3><span class="icon section-icon"></span> Garantia de fabrica</h3>
                         <div class="form-row">

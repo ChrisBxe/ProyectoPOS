@@ -104,11 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['termino_busqueda'])) 
                 </div>
             </header>
             <section class="page-content">
-                <div class="page-header">
-                    <h2><span class="icon section-icon"></span> NUEVO PRODUCTO</h2>
-                    <p>En el modulo PRODUCTOS podra agregar nuevos productos al sistema, actualizar datos de los productos, eliminar o actualizar la imagen de los productos, imprimir codigos de barras o SKU de cada producto, buscar productos en el sistema, ver todos los productos en almacen, ver los productos mas vendido y filtrar productos por categoria.</p>
-                </div>
-
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="ProductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
