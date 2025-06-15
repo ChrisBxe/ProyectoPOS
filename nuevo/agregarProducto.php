@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio_compra = $_POST['precio_compra'];
     $precio_venta = $_POST['precio_venta'];
     $categoria = $_POST['categoria_producto'];
-    $fecha_venc = $_POST['fecha_vencimiento'];
     $garantia = $_POST['tiempo_garantia'];
     $estado = $_POST['estado_producto'];
 
@@ -27,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO productos (
         codigo_producto,nombre_producto, descripcion, stock, stock_minimo,
-        precio_compra, precio_venta, id_categoria, fecha_vencimiento,
+        precio_compra, precio_venta, id_categoria,
         garantia_meses, estado, imagen
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -37,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error en prepare: " . $conexion->error);
     }
 
-    $stmt->bind_param("ssiidddssis",$codigo, $nombre, $descripcion, $stock, $stock_minimo, $precio_compra, $precio_venta, $categoria, $fecha_venc, $garantia, $estado, $nombre_foto);
+    $stmt->bind_param("ssiidddssis",$codigo, $nombre, $descripcion, $stock, $stock_minimo, $precio_compra, $precio_venta, $categoria, $garantia, $estado, $nombre_foto);
 
     if ($stmt->execute()) {
         echo "<script>alert('Producto agregado exitosamente'); window.location='nuevoProducto.php';</script>";

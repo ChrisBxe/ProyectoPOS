@@ -1,3 +1,7 @@
+<?php
+include 'conexionbd.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -94,15 +98,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">Habilitada</span></td>
-                                <td><a href="actualizarCategoria.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
-                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                            </tbody>
+                            <?php
+                            $sql = "SELECT id_categoria, nombre_categoria, ubicacion, estado FROM categorias ORDER BY nombre_categoria ASC";
+                            $resultado = $conexion->query($sql);
+
+                            if ($resultado && $resultado->num_rows > 0) {
+                                while($categoria = $resultado->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($categoria['id_categoria']); ?></td>
+                                        <td><?php echo htmlspecialchars($categoria['nombre_categoria']); ?></td>
+                                        <td><?php echo htmlspecialchars($categoria['ubicacion']); ?></td>
+                                        <td>
+                                            <?php if ($categoria['estado'] == 'Habilitada'): ?>
+                                                <span class="status status-active">Habilitada</span>
+                                            <?php else: ?>
+                                                <span class="status status-inactive">Deshabilitada</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <a href="actualizarCategoria.php?id=<?php echo $categoria['id_categoria']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
+                                        </td>
+                                        <td>
+                                            <a href="eliminarCategoria.php?id=<?php echo $categoria['id_categoria']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');"><span class="icon">🗑️</span>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo '<tr><td colspan="5">No hay categorías registradas.</td></tr>';
+                            }
+                            $conexion->close();
+                            ?>
+                        </tbody>
                     </table>
                 </div>
             </section>

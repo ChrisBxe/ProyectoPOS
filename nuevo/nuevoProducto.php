@@ -98,9 +98,9 @@
                         <h3><span class="icon section-icon"><y_bin_226></span> Codigo</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="codigo_barras">Codigo de barras</label>
+                                <label for="codigo_barras">Codigo de producto</label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="codigo_barras" name="codigo_barras" placeholder="Escanear o ingresar codigo">
+                                    <input type="text" id="codigo_producto" name="codigo_producto" placeholder="Escanear o ingresar codigo">
                                     <span class="icon-field"><y_bin_226></span>
                                 </div>
                             </div>

@@ -33,7 +33,7 @@ include 'conexionbd.php';
                         <a href="#"><span class="icon">📦</span> Productos</a>
                         <ul class="submenu">
                             <li><a href="nuevoProducto.php"><span class="icon"></span> Nueva Producto</a></li>
-                            <li><a href="PorductosAlmacen.php"><span class="icon"></span> Productos en Almacen</a></li>
+                            <li><a href="ProductosAlmacen.php"><span class="icon"></span> Productos en Almacen</a></li>
                             <li><a href="productoMinStock.php"><span class="icon"></span> Productos en stok minimo</a></li>
                             <li><a href="buscarProducto.php"><span class="icon"></span> Buscar Producto</a></li>
                         </ul>
@@ -91,9 +91,9 @@ include 'conexionbd.php';
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>CODIGO BARRAS</th>
+                                <th>NOMBRE</th>
                                 <th>PRECIO</th>
                                 <th>DISPONIBILIDAD</th>
-                                <th>VENCIMIENTO</th>
                                 <th>ESTADO</th>
                                 <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
@@ -118,7 +118,6 @@ include 'conexionbd.php';
                                     <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
                                     <td>$<?php echo number_format($producto['precio_venta'], 2); ?></td>
                                     <td><?php echo htmlspecialchars($producto['stock']); ?></td>
-                                    <td><?php echo htmlspecialchars($producto['fecha_vencimiento'] ? date("Y/m/d", strtotime($producto['fecha_vencimiento'])) : 'N/A'); ?></td>
                                     <td>
                                         <?php if ($producto['estado'] == 'habilitado'): ?>
                                             <span class="status status-active">HABILITADO</span>
@@ -128,7 +127,9 @@ include 'conexionbd.php';
                                     </td>
                                     <td>
                                         <a href="actualizarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
-                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"><span class="icon">🗑️</span></a>
+                                    </td>
+                                    <td>
+                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?');"><span class="icon">🗑️</span></a>
                                     </td>
                                 </tr>
                                 <?php

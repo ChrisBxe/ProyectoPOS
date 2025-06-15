@@ -90,9 +90,9 @@ include 'conexionbd.php';
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>CODIGO BARRAS</th>
+                                <th>NOMBRE</th>
                                 <th>PRECIO</th>
                                 <th>DISPONIBILIDAD</th>
-                                <th>VENCIMIENTO</th>
                                 <th>ESTADO</th>
                                 <th>ACTUALIZAR</th>
                                 <th>ELIMINAR</th>
@@ -126,13 +126,15 @@ include 'conexionbd.php';
                                     </td>
                                     <td>
                                         <a href="actualizarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
-                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"><span class="icon">🗑️</span></a>
+                                    </td>
+                                    <td>
+                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a>
                                     </td>
                                 </tr>
                                 <?php
                             }
                         } else {
-                            echo '<tr><td colspan="7">No hay productos con bajo stock.</td></tr>';
+                            echo '<tr><td colspan="8">No hay productos con bajo stock.</td></tr>';
                         }
                         $conexion->close();
                         ?>
