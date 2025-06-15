@@ -11,16 +11,16 @@ switch ($ordenar) {
         $orderBy = "nombre_producto DESC";
         break;
     case 'stock_asc':
-        $orderBy = "stock_producto ASC";
+        $orderBy = "stock ASC";
         break;
     case 'stock_desc':
-        $orderBy = "stock_producto DESC";
+        $orderBy = "stock DESC";
         break;
     default:
         $orderBy = "nombre_producto ASC";
 }
 
-$sql = "SELECT id_producto, nombre_producto, descripcion, stock_producto, precio FROM productos ORDER BY $orderBy";
+$sql = "SELECT id_producto, nombre_producto, descripcion, stock, precio_venta FROM productos ORDER BY $orderBy";
 $result = $conexion->query($sql);
 if ($result === false) {
     die("Error en la consulta: " . $conexion->error);
@@ -49,7 +49,6 @@ if ($result === false) {
                     <li class="has-submenu">
                         <a href="#"><span class="icon">🛠️</span> Administracion</a>
                         <ul class="submenu">
-                            <li><a href="nuevaCaja.php"><span class="icon"></span> Nueva caja</a></li>
                             <li><a href="nuevaCategoria.php"><span class="icon"></span> Nueva categoria</a></li>
                             <li><a href="nuevoUsuario.php"><span class="icon"></span> Nuevo usuario</a></li>
                         </ul>
@@ -70,13 +69,6 @@ if ($result === false) {
                             <li><a href="ventasRealizadas.php"><span class="icon"></span> Ventas realizadas</a></li>
                             <li><a href="buscarXCodigo.php"><span class="icon"></span> Buscar venta por codigo</a></li>
                             <li><a href="buscarXFecha.php"><span class="icon"></span> Buscar venta por fecha</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">🏦</span> Movimientos en caja</a>
-                        <ul class="submenu">
-                            <li><a href="nuevoMovimiento.php"><span class="icon"></span> Nuevo Movimineto</a></li>
-                            <li><a href="movimientosRealizados.php"><span class="icon"></span> Movimientos realizados</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -141,8 +133,8 @@ if ($result === false) {
             <td><?php echo htmlspecialchars($row['id_producto']); ?></td>
             <td><?php echo htmlspecialchars($row['nombre_producto']); ?></td>
             <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
-            <td><?php echo htmlspecialchars($row['stock_producto']); ?></td>
-            <td><?php echo htmlspecialchars(number_format($row['precio'], 2)); ?></td>
+            <td><?php echo htmlspecialchars($row['stock']); ?></td>
+            <td><?php echo htmlspecialchars(number_format($row['precio_venta'], 2)); ?></td>
         </tr>
         <?php endwhile; ?>
     </tbody>

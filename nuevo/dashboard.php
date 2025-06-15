@@ -20,7 +20,6 @@
                     <li class="has-submenu">
                         <a href="#"><span class="icon">🛠️</span> Administracion</a>
                         <ul class="submenu">
-                            <li><a href="nuevaCaja.php"><span class="icon"></span> Nueva caja</a></li>
                             <li><a href="nuevaCategoria.php"><span class="icon"></span> Nueva categoria</a></li>
                             <li><a href="nuevoUsuario.php"><span class="icon"></span> Nuevo usuario</a></li>
                         </ul>
@@ -41,13 +40,6 @@
                             <li><a href="ventasRealizadas.php"><span class="icon"></span> Ventas realizadas</a></li>
                             <li><a href="buscarXCodigo.php"><span class="icon"></span> Buscar venta por codigo</a></li>
                             <li><a href="buscarXFecha.php"><span class="icon"></span> Buscar venta por fecha</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">🏦</span> Movimientos en caja</a>
-                        <ul class="submenu">
-                            <li><a href="nuevoMovimiento.php"><span class="icon"></span> Nuevo Movimineto</a></li>
-                            <li><a href="movimientosRealizados.php"><span class="icon"></span> Movimientos realizados</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -77,33 +69,26 @@
             </header>
             <section class="dashboard-widgets">
                 <div class="widget-row">
-                    <a href="#" class="widget">
-                        <div class="widget-icon"><span class="icon-large"></span></div>
-                        <h3>CAJAS</h3>
-                    </a>
-                    <a href="#" class="widget">
+                    <a href="listaCategorias.php" class="widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>CATEGORIAS</h3>
                     </a>
-                    <a href="#" class="widget">
+                    <a href="listaUsuarios.php" class="widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>USUARIOS</h3>
                     </a>
-                    <a href="#" class="widget">
+                    <a href="ProductosAlmacen.php" class="widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>PRODUCTOS</h3>
                     </a>
-                    <a href="#" class="widget">
-                        <div class="widget-icon"><span class="icon-large"></span></div>
-                        <h3>MOVIMIENTOS</h3>
-                    </a>
-                    <a href="#" class="widget">
+
+                    <a href="ventasRealizadas.php" class="widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>VENTAS</h3>
                     </a>
                 </div>
                 <div class="widget-row">
-                    <a href="#" class="widget large-widget">
+                    <a href="reporteVenta.php" class="widget large-widget">
                         <div class="widget-icon"><span class="icon-large"></span></div>
                         <h3>REPORTES</h3>
                     </a>

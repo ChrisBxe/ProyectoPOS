@@ -49,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['termino_busqueda'])) 
                     <li class="has-submenu">
                         <a href="#"><span class="icon">🛠️</span> Administracion</a>
                         <ul class="submenu">
-                            <li><a href="nuevaCaja.php"><span class="icon"></span> Nueva caja</a></li>
                             <li><a href="nuevaCategoria.php"><span class="icon"></span> Nueva categoria</a></li>
                             <li><a href="nuevoUsuario.php"><span class="icon"></span> Nuevo usuario</a></li>
                         </ul>
@@ -70,13 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['termino_busqueda'])) 
                             <li><a href="ventasRealizadas.php"><span class="icon"></span> Ventas realizadas</a></li>
                             <li><a href="buscarXCodigo.php"><span class="icon"></span> Buscar venta por codigo</a></li>
                             <li><a href="buscarXFecha.php"><span class="icon"></span> Buscar venta por fecha</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">🏦</span> Movimientos en caja</a>
-                        <ul class="submenu">
-                            <li><a href="nuevoMovimiento.php"><span class="icon"></span> Nuevo Movimineto</a></li>
-                            <li><a href="movimientosRealizados.php"><span class="icon"></span> Movimientos realizados</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
