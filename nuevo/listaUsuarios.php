@@ -1,3 +1,8 @@
+<?php
+// Incluimos el archivo de conexión a la base de datos
+include 'conexionbd.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -96,17 +101,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>**</td>
-                                <td>*tipo + el numero de documento*</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><a href="actualizarUsuario.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
-                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                            </tbody>
+                            <?php
+                            // Seleccionamos los campos necesarios de la tabla de usuarios. NUNCA selecciones la contraseña.
+                            $sql = "SELECT id_usuario, tipo_documento, numero_documento, cargo, nombres, apellidos, nombre_usuario, telefono 
+                                    FROM usuarios 
+                                    ORDER BY nombres ASC";
+                            $resultado = $conexion->query($sql);
+
+                            if ($resultado && $resultado->num_rows > 0) {
+                                // Iterar sobre cada fila de resultado
+                                while($usuario = $resultado->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($usuario['id_usuario']); ?></td>
+                                        <td><?php echo htmlspecialchars(strtoupper($usuario['tipo_documento']) . ' - ' . $usuario['numero_documento']); ?></td>
+                                        <td><?php echo htmlspecialchars($usuario['cargo']); ?></td>
+                                        <td><?php echo htmlspecialchars($usuario['nombres'] . ' ' . $usuario['apellidos']); ?></td>
+                                        <td><?php echo htmlspecialchars($usuario['nombre_usuario']); ?></td>
+                                        <td><?php echo htmlspecialchars($usuario['telefono']); ?></td>
+                                        <td>
+                                            <a href="actualizarUsuario.php?id=<?php echo $usuario['id_usuario']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
+                                        </td>
+                                        <td>
+                                            <a href="eliminarUsuario.php?id=<?php echo $usuario['id_usuario']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?');"><span class="icon">🗑️</span></a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                // Si no hay usuarios, mostrar un mensaje en la tabla
+                                echo '<tr><td colspan="7">No hay usuarios registrados.</td></tr>';
+                            }
+                            // Cerrar la conexión
+                            $conexion->close();
+                            ?>
+                        </tbody>
                     </table>
             </section>
         </main>
