@@ -1,3 +1,6 @@
+<?php
+include 'conexionbd.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -77,7 +80,7 @@
             <section class="page-content">
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
-                        <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
+                        <li><a href="productosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
                         <li><a href="productoMinStock.php" class="tab-active"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
                         <li><a href="buscarProducto.php"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>
@@ -96,17 +99,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="" alt="Producto" class="product-image"></td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">HABILITADO</span></td>
-                                <td><a href="actualizarProducto.php" class="action-icon action-update" title="Actualizar"><span class="icon">✏️</span></a></td>
-                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                            </tbody>
+                        <?php
+                        $sql = "SELECT id_producto, imagen, codigo_producto, nombre_producto, stock, stock_minimo, estado FROM productos WHERE stock <= stock_minimo ORDER BY stock ASC";
+                        $resultado = $conexion->query($sql);
+
+                        if ($resultado->num_rows > 0) {
+                            while($producto = $resultado->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php if (!empty($producto['imagen'])): ?>
+                                            <img src="img_productos/<?php echo htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" class="product-image">
+                                        <?php else: ?>
+                                            <img src="img_productos/default.png" alt="Sin imagen" class="product-image"> <?php endif; ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($producto['codigo_producto']); ?></td>
+                                    <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
+                                    <td class="low-stock"><?php echo htmlspecialchars($producto['stock']); ?></td>
+                                    <td><?php echo htmlspecialchars($producto['stock_minimo']); ?></td>
+                                    <td>
+                                        <?php if ($producto['estado'] == 'habilitado'): ?>
+                                            <span class="status status-active">HABILITADO</span>
+                                        <?php else: ?>
+                                            <span class="status status-inactive">DESHABILITADO</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="actualizarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
+                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"><span class="icon">🗑️</span></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            echo '<tr><td colspan="7">No hay productos con bajo stock.</td></tr>';
+                        }
+                        $conexion->close();
+                        ?>
+                    </tbody>
                     </table>
             </section>
         </main>

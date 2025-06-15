@@ -101,13 +101,10 @@ include 'conexionbd.php';
                         </thead>
                         <tbody>
                         <?php
-                        // Consulta para obtener todos los productos. Se asume que tienes una columna id_producto
-                        // y que los nombres de las columnas coinciden con los usados en agregarProducto.php
                         $sql = "SELECT id_producto, imagen, codigo_producto, nombre_producto, precio_venta, stock, fecha_vencimiento, estado FROM productos ORDER BY nombre_producto ASC"; //
                         $resultado = $conexion->query($sql);
 
                         if ($resultado->num_rows > 0) {
-                            // Iterar sobre cada fila de resultado
                             while($producto = $resultado->fetch_assoc()) {
                                 ?>
                                 <tr>
@@ -137,11 +134,9 @@ include 'conexionbd.php';
                                 <?php
                             }
                         } else {
-                            // Si no hay productos, mostrar un mensaje en la tabla
                             echo '<tr><td colspan="8">No hay productos registrados en el almacén.</td></tr>';
                         }
-                        // Cerrar la conexión
-                        $conexion->close(); //
+                        $conexion->close();
                         ?>
                     </tbody>
                     </table>
