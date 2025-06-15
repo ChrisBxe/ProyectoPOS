@@ -73,7 +73,6 @@
                         <ul>
                             <li><a href="nuevaVenta.php"><span class="icon"></span> NUEVA VENTA</a></li>
                             <li><a href="ventasRealizadas.php"><span class="icon"></span> VENTAS REALIZADAS</a></li>
-                            <li><a href="ventasPendientes.php"><span class="icon"></span> VENTAS PENDIENTES</a></li>
                             <li><a href="buscarXFecha.php" class="tab-active"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
                             <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
                         </ul>
@@ -105,11 +104,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>NUMERO VENTA</th>
                                 <th>FECHA</th>
                                 <th>VENDEDOR</th>
                                 <th>TOTAL</th>
-                                <th>ESTADO</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
@@ -119,8 +116,6 @@
                                 <td>**</td>
                                 <td>**</td>
                                 <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">REALIZADA</span></td>
                                 <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
                             </tr>
                             </tbody>

@@ -1,3 +1,7 @@
+<?php
+include 'conexionbd.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -73,7 +77,6 @@
                         <ul>
                             <li><a href="nuevaVenta.php"><span class="icon"></span> NUEVA VENTA</a></li>
                             <li><a href="ventasRealizadas.php" class="tab-active"><span class="icon"></span> VENTAS REALIZADAS</a></li>
-                            <li><a href="ventasPendientes.php"><span class="icon"></span> VENTAS PENDIENTES</a></li>
                             <li><a href="buscarXFecha.php"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
                             <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
                         </ul>
@@ -83,25 +86,51 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>NUMERO VENTA</th>
                                 <th>FECHA</th>
                                 <th>VENDEDOR</th>
                                 <th>TOTAL</th>
-                                <th>ESTADO</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">REALIZADA</span></td>
-                                <td><a href="#" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                            </tbody>
+                            <?php
+                            // Consulta SQL con JOIN para obtener el nombre del vendedor
+                            // Se asume que la tabla 'ventas' tiene un campo 'id_usuario' que es una clave foránea a la tabla 'usuarios'
+                            $sql = "SELECT 
+                                        v.id_venta, 
+                                        v.fecha_venta, 
+                                        v.total,  
+                                        u.nombres, 
+                                        u.apellidos 
+                                    FROM ventas AS v
+                                    JOIN usuarios AS u ON v.id_usuario = u.id_usuario
+                                    ORDER BY v.fecha_venta DESC";
+
+                            $resultado = $conexion->query($sql);
+
+                            if ($resultado && $resultado->num_rows > 0) {
+                                // Iterar sobre cada venta encontrada
+                                while($venta = $resultado->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($venta['id_venta']); ?></td>
+                                        <td><?php echo date("d/m/Y h:i A", strtotime($venta['fecha_venta'])); ?></td>
+                                        <td><?php echo htmlspecialchars($venta['nombres'] . ' ' . $venta['apellidos']); ?></td>
+                                        <td class="total-amount">$<?php echo number_format($venta['total_venta'], 2); ?></td>
+                                        <td>
+                                            <a href="eliminarVenta.php?id=<?php echo $venta['id_venta']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta? Esta acción no se puede deshacer.');">🗑️</a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                // Si no hay ventas, mostrar un mensaje
+                                echo '<tr><td colspan="7">No hay ventas realizadas registradas.</td></tr>';
+                            }
+                            // Cerrar la conexión
+                            $conexion->close();
+                            ?>
+                        </tbody>
                     </table>
             </div>
         </main>
