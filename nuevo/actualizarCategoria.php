@@ -1,3 +1,76 @@
+<?php
+// Incluir la conexión a la base de datos
+include 'conexionbd.php';
+
+$id_categoria = null;
+$categoria = null;
+$mensaje = '';
+
+// 1. OBTENER EL ID DE LA CATEGORÍA
+// Se intenta obtener desde POST (al guardar) y si no, desde GET (al cargar la página)
+if (isset($_POST['id_categoria'])) {
+    $id_categoria = $_POST['id_categoria'];
+} elseif (isset($_GET['id'])) {
+    $id_categoria = $_GET['id'];
+} else {
+    die("Error: No se ha especificado un ID de categoría.");
+}
+
+// 2. PROCESAR EL FORMULARIO (MÉTODO POST)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recoger datos del formulario
+    $nombre_categoria = $_POST['nombre_categoria'];
+    $ubicacion_categoria = $_POST['ubicacion_categoria'];
+    $estado_categoria = $_POST['estado'];
+
+    // Validar que el nombre no esté vacío
+    if (empty($nombre_categoria)) {
+        $mensaje = "Error: El nombre de la categoría no puede estar vacío.";
+    } else {
+        // Validar si el nombre de la categoría ya existe en OTRA categoría
+        $sql_check = "SELECT id_categoria FROM categorias WHERE nombre_categoria = ? AND id_categoria != ?";
+        $stmt_check = $conexion->prepare($sql_check);
+        $stmt_check->bind_param("si", $nombre_categoria, $id_categoria);
+        $stmt_check->execute();
+        $stmt_check->store_result();
+
+        if ($stmt_check->num_rows > 0) {
+            $mensaje = "Error: Ya existe otra categoría con ese nombre.";
+        } else {
+            // Si todo es correcto, proceder con la actualización
+            $sql_update = "UPDATE categorias SET nombre_categoria = ?, ubicacion_categoria = ?, estado = ? WHERE id_categoria = ?";
+            $stmt_update = $conexion->prepare($sql_update);
+            $stmt_update->bind_param("sssi", $nombre_categoria, $ubicacion_categoria, $estado_categoria, $id_categoria);
+
+            if ($stmt_update->execute()) {
+                echo "<script>alert('Categoría actualizada exitosamente.'); window.location.href='listaCategorias.php';</script>";
+                exit();
+            } else {
+                $mensaje = "Error al actualizar la categoría: " . $stmt_update->error;
+            }
+            $stmt_update->close();
+        }
+        $stmt_check->close();
+    }
+}
+
+// 3. OBTENER DATOS ACTUALES PARA MOSTRAR EN EL FORMULARIO (MÉTODO GET)
+$sql_fetch = "SELECT * FROM categorias WHERE id_categoria = ?";
+$stmt_fetch = $conexion->prepare($sql_fetch);
+$stmt_fetch->bind_param("i", $id_categoria);
+$stmt_fetch->execute();
+$resultado = $stmt_fetch->get_result();
+
+if ($resultado->num_rows === 1) {
+    $categoria = $resultado->fetch_assoc();
+} else {
+    // Si no se encuentra la categoría, se detiene la ejecución
+    die("Categoría no encontrada.");
+}
+$stmt_fetch->close();
+$conexion->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -75,35 +148,44 @@
                 </div>
             </header>
             <section class="page-content">
+                 <div class="page-header">
+                    <h2><span class="icon section-icon"></span> ACTUALIZAR CATEGORÍA</h2>
+                    <p>En esta sección puede modificar el nombre, la ubicación y el estado de una categoría existente.</p>
+                </div>
+                
+                <?php if ($mensaje): ?>
+                    <p style="color: red; text-align: center; margin-bottom: 15px;"><?php echo htmlspecialchars($mensaje); ?></p>
+                <?php endif; ?>
+
                 <div class="form-panel">
-                    <h3><span class="icon section-icon"></span> Informacion de la categoria</h3>
-                    <form action="registrarCategoria.php" method="post">
+                    <h3><span class="icon section-icon"></span> Información de la categoría</h3>
+                    
+                    <form action="actualizarCategoria.php" method="post">
+                        
+                        <input type="hidden" name="id_categoria" value="<?php echo htmlspecialchars($categoria['id_categoria']); ?>">
+
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nombre_categoria">Nombre de la categoria</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="nombre_categoria" name="nombre_categoria" placeholder="Ej: Bebidas">
-                                    <span class="icon-field"></span> </div>
+                                <label for="nombre_categoria">Nombre de la categoría</label>
+                                <input type="text" id="nombre_categoria" name="nombre_categoria" value="<?php echo htmlspecialchars($categoria['nombre_categoria']); ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="ubicacion_categoria">Pasillo o ubicacion de la categoria</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="ubicacion_categoria" name="ubicacion_categoria" placeholder="Ej: Pasillo 2, Estante A">
-                                    <span class="icon-field"></span> </div>
+                                <label for="ubicacion">Pasillo o ubicación</label>
+                                <input type="text" id="ubicacion" name="ubicacion" value="<?php echo htmlspecialchars($categoria['ubicacion']); ?>">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"> <label for="estado_categoria">Estado de la categoria</label>
-                                <select id="estado_categoria" name="estado_categoria">
-                                    <option value="habilitada" selected>Habilitada</option>
-                                    <option value="deshabilitada">Deshabilitada</option>
+                            <div class="form-group">
+                                <label for="estado">Estado de la categoría</label>
+                                <select id="estado" name="estado">
+                                    <option value="Habilitada" <?php echo ($categoria['estado'] == 'Habilitada') ? 'selected' : ''; ?>>Habilitada</option>
+                                    <option value="Deshabilitada" <?php echo ($categoria['estado'] == 'Deshabilitada') ? 'selected' : ''; ?>>Deshabilitada</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
+                            <button type="submit" class="btn btn-primary"><span class="icon"></span> ACTUALIZAR</button>
+                            <a href="listaCategorias.php" class="btn btn-secondary">CANCELAR</a>
                         </div>
                     </form>
                 </div>

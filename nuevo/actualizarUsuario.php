@@ -1,3 +1,103 @@
+<?php
+// Incluir la conexión a la base de datos
+include 'conexionbd.php';
+
+$id_usuario = null;
+$usuario = null;
+$cajas = [];
+$mensaje = '';
+
+// 1. OBTENER EL ID DEL USUARIO
+if (isset($_POST['id_usuario'])) {
+    $id_usuario = $_POST['id_usuario'];
+} elseif (isset($_GET['id'])) {
+    $id_usuario = $_GET['id'];
+} else {
+    die("Error: No se ha especificado un ID de usuario.");
+}
+
+// 2. PROCESAR EL FORMULARIO (CUANDO SE ENVÍA POR POST)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recoger datos del formulario
+    $tipo_documento = $_POST['tipo_documento'];
+    $numero_documento = $_POST['numero_documento'];
+    $cargo = $_POST['cargo'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $telefono = $_POST['telefono'];
+    $genero = $_POST['genero'];
+    $id_caja = $_POST['caja_ventas'] ?? null;
+    $nombre_usuario = $_POST['nombre_usuario'];
+    $email = $_POST['email'];
+    $estado_cuenta = $_POST['estado_cuenta'];
+    $contrasena = $_POST['contrasena'];
+    $repetir_contrasena = $_POST['repetir_contrasena'];
+
+    // Validar si el nuevo email o nombre de usuario ya existen en OTRO usuario
+    $sql_check = "SELECT id_usuario FROM usuarios WHERE (nombre_usuario = ? OR email = ?) AND id_usuario != ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("ssi", $nombre_usuario, $email, $id_usuario);
+    $stmt_check->execute();
+    $stmt_check->store_result();
+
+    if ($stmt_check->num_rows > 0) {
+        $mensaje = "Error: El nombre de usuario o el email ya están en uso por otro usuario.";
+    } else {
+        // Inicializar la consulta de actualización y los parámetros
+        $sql_update = "UPDATE usuarios SET tipo_documento=?, numero_documento=?, cargo=?, nombres=?, apellidos=?, telefono=?, genero=?, id_caja=?, nombre_usuario=?, email=?, estado=? ";
+        $params = [$tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $id_caja, $nombre_usuario, $email, $estado_cuenta];
+        $types = "ssssssssssi";
+
+        // Lógica para actualizar la contraseña SÓLO si se proporciona una nueva
+        if (!empty($contrasena)) {
+            if ($contrasena === $repetir_contrasena) {
+                $contrasena_hasheada = password_hash($contrasena, PASSWORD_DEFAULT);
+                $sql_update .= ", password=? ";
+                $params[] = $contrasena_hasheada;
+                $types .= "s";
+            } else {
+                $mensaje = "Error: Las nuevas contraseñas no coinciden.";
+            }
+        }
+
+        if (empty($mensaje)) {
+            $sql_update .= "WHERE id_usuario = ?";
+            $params[] = $id_usuario;
+            $types .= "i";
+            
+            $stmt_update = $conexion->prepare($sql_update);
+            // Usar el operador "splat" (...) para pasar el array de parámetros a bind_param
+            $stmt_update->bind_param($types, ...$params);
+
+            if ($stmt_update->execute()) {
+                echo "<script>alert('Usuario actualizado exitosamente.'); window.location.href='listaUsuarios.php';</script>";
+                exit();
+            } else {
+                $mensaje = "Error al actualizar el usuario: " . $stmt_update->error;
+            }
+            $stmt_update->close();
+        }
+    }
+    $stmt_check->close();
+}
+
+// 3. OBTENER DATOS ACTUALES PARA MOSTRAR EN EL FORMULARIO
+$sql_fetch_user = "SELECT * FROM usuarios WHERE id_usuario = ?";
+$stmt_fetch_user = $conexion->prepare($sql_fetch_user);
+$stmt_fetch_user->bind_param("i", $id_usuario);
+$stmt_fetch_user->execute();
+$resultado_user = $stmt_fetch_user->get_result();
+
+if ($resultado_user->num_rows === 1) {
+    $usuario = $resultado_user->fetch_assoc();
+} else {
+    die("Usuario no encontrado.");
+}
+$stmt_fetch_user->close();
+
+$conexion->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -79,148 +179,104 @@
                     <span class="icon">POWER</span>
                 </div>
             </header>
+            <main class="main-content">
+            <header class="top-bar">
+                <div class="dashboard-title"><h1>ADMINISTRACIÓN</h1></div>
+            </header>
             <section class="page-content">
-                <form action="agregarUsuario.php" method="post">
+                <h2><span class="icon section-icon"></span> ACTUALIZAR USUARIO</h2>
+                <?php if ($mensaje): ?>
+                    <p style="color: red; text-align: center;"><?php echo htmlspecialchars($mensaje); ?></p>
+                <?php endif; ?>
+
+                <form action="actualizarUsuario.php" method="POST">
+                    <input type="hidden" name="id_usuario" value="<?php echo htmlspecialchars($usuario['id_usuario']); ?>">
+
                     <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Informacion personal</h3>
+                        <h3>Información Personal</h3>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="tipo_documento">Tipo de documento</label>
-                                <div class="input-with-icon">
-                                    <select id="tipo_documento" name="tipo_documento">
-                                        <option value="" disabled selected>Seleccione una opcion</option>
-                                        <option value="dni">DNI</option>
-                                        <option value="pasaporte">Pasaporte</option>
-                                        <option value="cedula">Cedula</option>
-                                    </select>
-                                    <span class="icon-field"></span>
-                                </div>
+                                <select id="tipo_documento" name="tipo_documento">
+                                    <option value="dni" <?php echo ($usuario['tipo_documento'] == 'dni') ? 'selected' : ''; ?>>DNI</option>
+                                    <option value="pasaporte" <?php echo ($usuario['tipo_documento'] == 'pasaporte') ? 'selected' : ''; ?>>Pasaporte</option>
+                                    <option value="cedula" <?php echo ($usuario['tipo_documento'] == 'cedula') ? 'selected' : ''; ?>>Cédula</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="numero_documento">Numero de documento</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="numero_documento" name="numero_documento" placeholder="Numero de documento">
-                                    <span class="icon-field"></span>
-                                </div>
+                                <label for="numero_documento">Número de documento</label>
+                                <input type="text" id="numero_documento" name="numero_documento" value="<?php echo htmlspecialchars($usuario['numero_documento']); ?>">
                             </div>
                             <div class="form-group">
                                 <label for="cargo">Cargo</label>
-                                 <div class="input-with-icon">
-                                    <select id="cargo" name="cargo">
-                                        <option value="" disabled selected>Seleccione una opcion</option>
-                                        <option value="administrador">Administrador</option>
-                                        <option value="cajero">Cajero</option>
-                                        <option value="vendedor">Vendedor</option>
-                                    </select>
-                                    <span class="icon-field"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="nombres">Nombres</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="nombres" name="nombres" placeholder="Nombres completos">
-                                    <span class="icon-field"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="apellidos">Apellidos</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos completos">
-                                     <span class="icon-field"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Telefono</label>
-                                <input type="text" id="telefono" name="telefono" placeholder="Numero de telefono">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-panel">
-                        <div class="form-row">
-                            <div class="form-group form-group-compound"> <h3><span class="icon section-icon"></span> Genero</h3>
-                                <div class="radio-group">
-                                    <label class="radio-label"><input type="radio" name="genero" value="masculino" checked> Masculino</label>
-                                    <label class="radio-label"><input type="radio" name="genero" value="femenino"> Femenino</label>
-                                </div>
-                            </div>
-                            <div class="form-group form-group-compound"> <h3><span class="icon section-icon"><y_bin_226></span> Configuracion de lector de codigo de barras</h3>
-                                <div class="radio-group-vertical">
-                                    <div class="radio-group">
-                                        <label class="radio-label"><input type="radio" name="usar_lector" value="si" checked> Usar lector</label>
-                                        <label class="radio-label"><input type="radio" name="usar_lector" value="no"> No usar lector</label>
-                                    </div>
-                                    <div class="radio-group">
-                                        <label class="radio-label"><input type="radio" name="tipo_codigo" value="barras" checked> Codigo barras</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Caja de ventas</h3>
-                        <div class="form-row">
-                            <div class="form-group form-group-fullwidth"> <label for="caja_ventas">Caja de ventas asignada</label>
-                                <select id="caja_ventas" name="caja_ventas">
-                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                <select id="cargo" name="cargo">
+                                    <option value="administrador" <?php echo ($usuario['cargo'] == 'administrador') ? 'selected' : ''; ?>>Administrador</option>
+                                    <option value="cajero" <?php echo ($usuario['cargo'] == 'cajero') ? 'selected' : ''; ?>>Cajero</option>
+                                    <option value="vendedor" <?php echo ($usuario['cargo'] == 'vendedor') ? 'selected' : ''; ?>>Vendedor</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="form-row">
+                             <div class="form-group">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" id="nombres" name="nombres" value="<?php echo htmlspecialchars($usuario['nombres']); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" id="apellidos" name="apellidos" value="<?php echo htmlspecialchars($usuario['apellidos']); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($usuario['telefono']); ?>">
+                            </div>
+                        </div>
+                         <div class="form-row">
+                            <div class="form-group">
+                                <label>Género</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="genero" value="masculino" <?php echo ($usuario['genero'] == 'masculino') ? 'checked' : ''; ?>> Masculino</label>
+                                    <label><input type="radio" name="genero" value="femenino" <?php echo ($usuario['genero'] == 'femenino') ? 'checked' : ''; ?>> Femenino</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Informacion de la cuenta</h3>
-                         <div class="form-row">
+                        <h3>Información de la Cuenta</h3>
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="nombre_usuario">Nombre de usuario</label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre de usuario">
-                                    <span class="icon-field"></span>
-                                </div>
+                                <input type="text" id="nombre_usuario" name="nombre_usuario" value="<?php echo htmlspecialchars($usuario['nombre_usuario']); ?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="correo@ejemplo.com">
+                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="contrasena">Contrasena</label>
-                                 <div class="input-with-icon">
-                                    <input type="password" id="contrasena" name="contrasena" placeholder="Contrasena">
-                                    <span class="icon-field"></span>
-                                </div>
+                                <label for="contrasena">Nueva Contraseña</label>
+                                <input type="password" id="contrasena" name="contrasena" placeholder="Dejar en blanco para no cambiar">
                             </div>
                             <div class="form-group">
-                                <label for="repetir_contrasena">Repetir contrasena</label>
-                                <div class="input-with-icon">
-                                    <input type="password" id="repetir_contrasena" name="repetir_contrasena" placeholder="Repetir contrasena">
-                                    <span class="icon-field"></span>
-                                </div>
+                                <label for="repetir_contrasena">Repetir Contraseña</label>
+                                <input type="password" id="repetir_contrasena" name="repetir_contrasena" placeholder="Dejar en blanco para no cambiar">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="estado_cuenta">Estado de la cuenta</label>
-                                <div class="input-with-icon">
-                                    <select id="estado_cuenta" name="estado_cuenta">
-                                        <option value="1" selected>1 - Activa</option>
-                                        <option value="0">0 - Inactiva</option>
-                                    </select>
-                                    <span class="icon-field"></span>
-                                </div>
+                                <select id="estado_cuenta" name="estado_cuenta">
+                                    <option value="1" <?php echo ($usuario['estado'] == 1) ? 'selected' : ''; ?>>Activa</option>
+                                    <option value="0" <?php echo ($usuario['estado'] == 0) ? 'selected' : ''; ?>>Inactiva</option>
+                                </select>
                             </div>
-                             <div class="form-group">
-                                </div>
                         </div>
                     </div>
 
                     <div class="form-actions-main">
-                        <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>
+                        <button type="submit" class="btn btn-primary">ACTUALIZAR USUARIO</button>
+                        <a href="listaUsuarios.php" class="btn btn-secondary">CANCELAR</a>
                     </div>
                 </form>
             </section>
