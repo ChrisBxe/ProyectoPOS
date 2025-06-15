@@ -82,7 +82,7 @@
 
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
-                        <li><a href="porductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
+                        <li><a href="ProductosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
                         <li><a href="productoMinStock.php"><span class="icon"></span> PRODUCTOS EN STOCK MINIMO</a></li>
                         <li><a href="buscarProducto.php"  class="tab-active"><span class="icon"></span> BUSCAR PRODUCTO</a></li>
                     </ul>

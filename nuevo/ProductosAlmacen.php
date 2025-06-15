@@ -1,3 +1,7 @@
+<?php
+include 'conexionbd.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -96,17 +100,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="" alt="Producto" class="product-image"></td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td>**</td>
-                                <td><span class="status status-active">HABILITADO</span></td>
-                                <td><a href="actualizarProducto.php" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a></td>
-                                <td><a href="confirmacionEliminacion.php" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a></td>
-                            </tr>
-                        </tbody>
+                        <?php
+                        // Consulta para obtener todos los productos. Se asume que tienes una columna id_producto
+                        // y que los nombres de las columnas coinciden con los usados en agregarProducto.php
+                        $sql = "SELECT id_producto, imagen, codigo_producto, nombre_producto, precio_venta, stock, fecha_vencimiento, estado FROM productos ORDER BY nombre_producto ASC"; //
+                        $resultado = $conexion->query($sql);
+
+                        if ($resultado->num_rows > 0) {
+                            // Iterar sobre cada fila de resultado
+                            while($producto = $resultado->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php if (!empty($producto['imagen'])): ?>
+                                            <img src="img_productos/<?php echo htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" class="product-image">
+                                        <?php else: ?>
+                                            <img src="img_productos/default.png" alt="Sin imagen" class="product-image"> <?php endif; ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($producto['codigo_producto']); ?></td>
+                                    <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
+                                    <td>$<?php echo number_format($producto['precio_venta'], 2); ?></td>
+                                    <td><?php echo htmlspecialchars($producto['stock']); ?></td>
+                                    <td><?php echo htmlspecialchars($producto['fecha_vencimiento'] ? date("Y/m/d", strtotime($producto['fecha_vencimiento'])) : 'N/A'); ?></td>
+                                    <td>
+                                        <?php if ($producto['estado'] == 'habilitado'): ?>
+                                            <span class="status status-active">HABILITADO</span>
+                                        <?php else: ?>
+                                            <span class="status status-inactive">DESHABILITADO</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="actualizarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
+                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"><span class="icon">🗑️</span></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            // Si no hay productos, mostrar un mensaje en la tabla
+                            echo '<tr><td colspan="8">No hay productos registrados en el almacén.</td></tr>';
+                        }
+                        // Cerrar la conexión
+                        $conexion->close(); //
+                        ?>
+                    </tbody>
                     </table>
             </section>
         </main>
