@@ -46,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hash_password = password_hash($contrasena, PASSWORD_DEFAULT);
 
     
-    $sql = "INSERT INTO usuarios (tipo_documento, numero_documento, cargo, nombres, apellidos, telefono, genero, usar_lector, tipo_codigo, caja_ventas, nombre_usuario, email, contrasena, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuarios (tipo_documento, numero_documento, cargo, nombres, apellidos, telefono, genero, usar_lector, tipo_codigo, nombre_usuario, email, contrasena, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("sssssssssssssi", $tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $usar_lector, $tipo_codigo, $caja_ventas, $nombre_usuario, $email, $hash_password, $estado);
+    $stmt->bind_param("ssssssssssssi", $tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $usar_lector, $tipo_codigo, $nombre_usuario, $email, $hash_password, $estado);
 
     if ($stmt->execute()) {
         echo "<p style='color:green;'>Usuario registrado correctamente.</p>";

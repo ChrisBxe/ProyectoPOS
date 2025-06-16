@@ -1035,3 +1035,32 @@ body {
 .data-table td:nth-child(6) {
     text-align: center;
 }
+
+/* --- ESTILOS PARA UNIFORMAR LAS IMÁGENES DE PRODUCTO --- */
+        .product-image {
+            width: 60px;          /* Ancho fijo del contenedor de la imagen */
+            height: 60px;         /* Alto fijo para crear un marco cuadrado */
+            object-fit: cover;    /* La imagen cubre el marco sin deformarse (recorta el exceso) */
+            border-radius: 8px;   /* Bordes redondeados para un look más suave */
+            background-color: #f0f0f0; /* Color de fondo por si una imagen no carga */
+        }
+        
+        /* Estilos generales para la tabla (pueden estar en styles.css) */
+        .data-table td, .data-table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        .status-active { background-color: #28a745; }
+        .status-inactive { background-color: #dc3545; }
+        .action-icon { text-decoration: none; font-size: 1.2em; }
+        .alert { padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .alert.success { background-color: #d4edda; color: #155724; }
+        .alert.error { background-color: #f8d7da; color: #721c24; }

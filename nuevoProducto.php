@@ -177,15 +177,6 @@ include 'sidebar.php';
                         </div>
                     </div>
 
-                    <div class="form-panel">
-                        <h3><span class="icon section-icon"></span> Foto o imagen del producto</h3>
-                        <div class="form-group form-group-fullwidth">
-                            <label for="foto_producto">Seleccionar archivo</label>
-                            <input type="file" id="foto_producto" name="foto_producto" class="file-input">
-                            <p class="file-input-note">Tipos de archivos permitidos: JPG, JPEG, PNG. Tamaño maximo 3MB. Resolucion recomendada 300px x 300px o superior manteniendo el aspecto cuadrado (1:1).</p>
-                        </div>
-                    </div>
-
                     <div class="form-actions-main">
                         <button type="reset" class="btn btn-secondary"><span class="icon"></span> LIMPIAR</button>
                         <button type="submit" class="btn btn-primary"><span class="icon"></span> GUARDAR</button>

@@ -44,9 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensaje = "Error: El nombre de usuario o el email ya están en uso por otro usuario.";
     } else {
         // Inicializar la consulta de actualización y los parámetros
-        $sql_update = "UPDATE usuarios SET tipo_documento=?, numero_documento=?, cargo=?, nombres=?, apellidos=?, telefono=?, genero=?, id_caja=?, nombre_usuario=?, email=?, estado=? ";
-        $params = [$tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $id_caja, $nombre_usuario, $email, $estado_cuenta];
-        $types = "ssssssssssi";
+        $sql_update = "UPDATE usuarios SET tipo_documento=?, numero_documento=?, cargo=?, nombres=?, apellidos=?, telefono=?, genero=?, nombre_usuario=?, email=?, estado=? ";
+        $params = [$tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $nombre_usuario, $email, $estado_cuenta];
+        $types = "sssssssssi";
 
         // Lógica para actualizar la contraseña SÓLO si se proporciona una nueva
         if (!empty($contrasena)) {

@@ -47,8 +47,8 @@ if ($result === false) {
 <body>
     <div class="container">
         <?php
-session_start();
-include 'sidebar.php';
+
+    include 'sidebar.php';
 ?>
 
         <main class="main-content">
