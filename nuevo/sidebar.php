@@ -51,13 +51,6 @@ $rol = $_SESSION['rol'] ?? 'Sin rol';
                 </ul>
             </li>
 
-            <li class="has-submenu">
-                <a href="#"><span class="icon">⚙️</span> Configuración</a>
-                <ul class="submenu">
-                    <li><a href="datos.php"><span class="icon"></span> Datos</a></li>
-                </ul>
-            </li>
-
             <li>
                 <a href="logout.php"><span class="icon">🚪</span> Cerrar sesión</a>
             </li>
