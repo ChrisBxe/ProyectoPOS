@@ -71,6 +71,12 @@ include 'conexionbd.php';
                 </div>
             </header>
             <section class="page-content">
+                <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'eliminado'): ?>
+    <div class="alert success">✅ Categoría eliminada correctamente.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] == 'usada'): ?>
+    <div class="alert error">⚠️ No se puede eliminar: Esta categoría tiene productos asociados.</div>
+<?php endif; ?>
+
                 <nav class="page-tabs">
                     <ul>
                         <li><a href="nuevaCategoria.php"><span class="icon"></span> NUEVA CATEGORIA</a></li>
@@ -112,7 +118,7 @@ include 'conexionbd.php';
                                             <a href="actualizarCategoria.php?id=<?php echo $categoria['id_categoria']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
                                         </td>
                                         <td>
-                                            <a href="eliminarCategoria.php?id=<?php echo $categoria['id_categoria']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');"><span class="icon">🗑️</span>
+                                            <a href="eliminarCategoria.php?id=<?php echo $categoria['id_categoria']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');"><span class="icon">🗑️</span></a>
                                         </td>
                                     </tr>
                                     <?php

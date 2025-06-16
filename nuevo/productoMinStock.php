@@ -70,6 +70,26 @@ include 'conexionbd.php';
                 </div>
             </header>
             <section class="page-content">
+                <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'eliminado'): ?>
+    <div class="alert success">✅ Producto eliminado correctamente.</div>
+<?php elseif (isset($_GET['error'])): ?>
+    <div class="alert error">
+        <?php
+        switch ($_GET['error']) {
+            case 'noexiste':
+                echo "❌ El producto no existe.";
+                break;
+            case 'noeliminado':
+                echo "⚠️ Error al intentar eliminar el producto. Puede estar relacionado con otras tablas.";
+                break;
+            case 'invalido':
+                echo "⚠️ ID inválido.";
+                break;
+        }
+        ?>
+    </div>
+<?php endif; ?>
+
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="productosAlmacen.php"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>
@@ -120,7 +140,7 @@ include 'conexionbd.php';
                                         <a href="actualizarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-edit" title="Actualizar"><span class="icon">✏️</span></a>
                                     </td>
                                     <td>
-                                        <a href="eliminarProducto.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a>
+                                        <a href="eliminarMiniStock.php?id=<?php echo $producto['id_producto']; ?>" class="action-icon action-delete" title="Eliminar"><span class="icon">🗑️</span></a>
                                     </td>
                                 </tr>
                                 <?php

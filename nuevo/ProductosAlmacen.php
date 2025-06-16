@@ -71,6 +71,16 @@ include 'conexionbd.php';
                 </div>
             </header>
             <section class="page-content">
+                <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'eliminado'): ?>
+    <div class="alert success">✅ Producto eliminado correctamente.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'fk'): ?>
+    <div class="alert error">⚠️ No se puede eliminar el producto porque está relacionado con otras tablas (por ejemplo, ventas).</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'notfound'): ?>
+    <div class="alert error">❌ El producto no fue encontrado.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'noid'): ?>
+    <div class="alert error">⚠️ No se proporcionó un ID válido.</div>
+<?php endif; ?>
+
                 <nav class="page-tabs"> <ul>
                         <li><a href="nuevoProducto.php"><span class="icon"></span> NUEVO PRODUCTO</a></li>
                         <li><a href="porductosAlmacen.php"  class="tab-active"><span class="icon"></span> PRODUCTOS EN ALMACEN</a></li>

@@ -8,57 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="" alt="Avatar" class="avatar">
-                <h2><?php echo $usuario; ?></h2>
-                <p><?php echo $rol; ?></p>
-            </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="active"><a href="dashboard.php"><span class="icon">📊</span> Dashboard</a></li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">🛠️</span> Administracion</a>
-                        <ul class="submenu">
-                            <li><a href="nuevaCategoria.php"><span class="icon"></span> Nueva categoria</a></li>
-                            <li><a href="nuevoUsuario.php"><span class="icon"></span> Nuevo usuario</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">📦</span> Productos</a>
-                        <ul class="submenu">
-                            <li><a href="nuevoProducto.php"><span class="icon"></span> Nueva Producto</a></li>
-                            <li><a href="PorductosAlmacen.php"><span class="icon"></span> Productos en Almacen</a></li>
-                            <li><a href="productoMinStock.php"><span class="icon"></span> Productos en stok minimo</a></li>
-                            <li><a href="buscarProducto.php"><span class="icon"></span> Buscar Producto</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">🛍️</span> Ventas</a>
-                        <ul class="submenu">
-                            <li><a href="nuevaVenta.php"><span class="icon"></span> Nueva Venta</a></li>
-                            <li><a href="ventasRealizadas.php"><span class="icon"></span> Ventas realizadas</a></li>
-                            <li><a href="buscarXCodigo.php"><span class="icon"></span> Buscar venta por codigo</a></li>
-                            <li><a href="buscarXFecha.php"><span class="icon"></span> Buscar venta por fecha</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">📄</span> Reportes</a>
-                        <ul class="submenu">
-                            <li><a href="reporteVenta.php"><span class="icon"></span> Reportes de Venta</a></li>
-                            <li><a href="reporteInventario.php"><span class="icon"></span> Reportes de Inventario</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#"><span class="icon">⚙️</span> Configuracion</a>
-                        <ul class="submenu">
-                            <li><a href="datos.php"><span class="icon"></span> Datos</a></li>
-                        </ul>
-                    </li>
-            </nav>
-        </aside>
+        <div class="container">
+        <?php include('sidebar.php'); ?>
+
         <main class="main-content">
+            
             <header class="top-bar">
+
                 <div class="dashboard-title">
                     <h1>VENTAS</h1>
                 </div>
@@ -168,26 +124,86 @@
                         <div class="venta-summary">
                             <div class="summary-item">
                                 <span>Subtotal</span>
-                                <span class="summary-value">+ $0.00 USD</span>
+                                <span id="venta_subtotal" class="summary-value">+ $0.00 USD</span>
                             </div>
                             <div class="summary-item">
                                 <span>IVA (15%)</span>
-                                <span class="summary-value">+ $0.00 USD</span>
+                                <span id="venta_iva" class="summary-value">+ $0.00 USD</span>
                             </div>
                             <div class="summary-item">
                                 <span>Descuento</span>
-                                <span class="summary-value summary-discount">- $0.00 USD</span>
+                                <span id="venta_descuento" class="summary-value summary-discount">- $0.00 USD</span>
                             </div>
                             <div class="summary-item summary-total">
                                 <span>Total</span>
-                                <span class="summary-value total-value">$0.00 USD</span>
+                                <span id="venta_total" class="summary-value total-value">$0.00 USD</span>
                             </div>
+				<button type="button" onclick="registrarVenta()">Finalizar Venta</button>
                         </div>
                     </form>
                 </aside>
             </div>
         </main>
     </div>
+<script>
+    let productosVenta = [
+        { id_producto: 1, cantidad: 2, precio_unitario: 10.00 },
+        { id_producto: 2, cantidad: 1, precio_unitario: 20.00 }
+    ];
+
+    function calcularTotales() {
+        let subtotal = 0;
+        productosVenta.forEach(p => {
+            subtotal += p.cantidad * p.precio_unitario;
+        });
+
+        let iva = subtotal * 0.15;
+
+        const descuentoInput = document.getElementById('venta_descuento_porcentaje');
+        let porcentajeDescuento = parseFloat(descuentoInput.value) || 0;
+        let descuento = ((subtotal + iva) * porcentajeDescuento) / 100;
+
+        let total = (subtotal + iva) - descuento;
+
+        const pagadoInput = document.getElementById('venta_total_pagado');
+        let pagado = parseFloat(pagadoInput.value) || 0;
+        let cambio = pagado - total;
+
+        // ✅ Usamos IDs específicos para actualizar los valores
+        document.getElementById("venta_subtotal").textContent = "+ $" + subtotal.toFixed(2) + " USD";
+        document.getElementById("venta_iva").textContent = "+ $" + iva.toFixed(2) + " USD";
+        document.getElementById("venta_descuento").textContent = "- $" + descuento.toFixed(2) + " USD";
+        document.getElementById("venta_total").textContent = "$" + total.toFixed(2) + " USD";
+        document.getElementById("venta_cambio").value = cambio >= 0 ? cambio.toFixed(2) : "0.00";
+    }
+
+    document.getElementById('venta_descuento_porcentaje').addEventListener('input', calcularTotales);
+    document.getElementById('venta_total_pagado').addEventListener('input', calcularTotales);
+
+    window.onload = calcularTotales;
+
+    function registrarVenta() {
+        const form = document.getElementById('datos-venta-form');
+        const formData = new FormData(form);
+        formData.append('productos', JSON.stringify(productosVenta));
+
+        fetch('registrarVenta.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("Venta registrada correctamente");
+                location.reload();
+            } else {
+                alert("Error: " + data.error);
+            }
+        });
+    }
+</script>
+
+
     <script>
 document.getElementById('codigo_producto_venta').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {

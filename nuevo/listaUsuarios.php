@@ -1,5 +1,4 @@
 <?php
-// Incluimos el archivo de conexión a la base de datos
 include 'conexionbd.php';
 ?>
 
@@ -72,6 +71,16 @@ include 'conexionbd.php';
                 </div>
             </header>
             <section class="page-content">
+                <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'eliminado'): ?>
+    <div class="alert success">✅ Usuario eliminado correctamente.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'notfound'): ?>
+    <div class="alert error">❌ Usuario no encontrado.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'db'): ?>
+    <div class="alert error">⚠️ Error al eliminar el usuario en la base de datos.</div>
+<?php elseif (isset($_GET['error']) && $_GET['error'] === 'noid'): ?>
+    <div class="alert error">⚠️ No se proporcionó un ID de usuario válido.</div>
+<?php endif; ?>
+
                 <nav class="page-tabs">
                     <ul>
                         <li><a href="nuevoUsuario.php"><span class="icon"></span> NUEVO USUARIO</a></li>
@@ -94,14 +103,14 @@ include 'conexionbd.php';
                         </thead>
                         <tbody>
                             <?php
-                            // Seleccionamos los campos necesarios de la tabla de usuarios. NUNCA selecciones la contraseña.
+                            
                             $sql = "SELECT id_usuario, tipo_documento, numero_documento, cargo, nombres, apellidos, nombre_usuario, telefono 
                                     FROM usuarios 
                                     ORDER BY nombres ASC";
                             $resultado = $conexion->query($sql);
 
                             if ($resultado && $resultado->num_rows > 0) {
-                                // Iterar sobre cada fila de resultado
+                                
                                 while($usuario = $resultado->fetch_assoc()) {
                                     ?>
                                     <tr>
@@ -121,10 +130,10 @@ include 'conexionbd.php';
                                     <?php
                                 }
                             } else {
-                                // Si no hay usuarios, mostrar un mensaje en la tabla
+                                
                                 echo '<tr><td colspan="7">No hay usuarios registrados.</td></tr>';
                             }
-                            // Cerrar la conexión
+                           
                             $conexion->close();
                             ?>
                         </tbody>
