@@ -10,33 +10,25 @@ $mensaje_error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['fecha_inicial']) && !empty($_POST['fecha_final'])) {
         $busqueda_realizada = true;
+        // Las fechas ya vienen en formato YYYY-MM-DD desde el input type="date"
         $fecha_inicial_str = $_POST['fecha_inicial'];
         $fecha_final_str = $_POST['fecha_final'];
 
-        // Convertir fechas de dd/mm/aaaa a YYYY-MM-DD para MySQL
-        $fecha_inicial_obj = DateTime::createFromFormat('d/m/Y', $fecha_inicial_str);
-        $fecha_final_obj = DateTime::createFromFormat('d/m/Y', $fecha_final_str);
+        // Formatear para la consulta SQL, incluyendo todo el día
+        $fecha_inicial_sql = $fecha_inicial_str . ' 00:00:00';
+        $fecha_final_sql = $fecha_final_str . ' 23:59:59';
 
-        if ($fecha_inicial_obj && $fecha_final_obj) {
-            // Formatear para la consulta SQL, incluyendo todo el día
-            $fecha_inicial_sql = $fecha_inicial_obj->format('Y-m-d 00:00:00');
-            $fecha_final_sql = $fecha_final_obj->format('Y-m-d 23:59:59');
+        $sql = "SELECT 
+                    *
+                FROM ventas
+                WHERE fecha_venta BETWEEN ? AND ?
+                ORDER BY fecha_venta DESC";
 
-            $sql = "SELECT 
-                        v.id_venta, v.fecha_venta, v.total,
-                        u.nombres, u.apellidos
-                    FROM ventas AS v
-                    JOIN usuarios AS u ON v.id_usuario = u.id_usuario
-                    WHERE v.fecha_venta BETWEEN ? AND ?
-                    ORDER BY v.fecha_venta DESC";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("ss", $fecha_inicial_sql, $fecha_final_sql);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
 
-            $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("ss", $fecha_inicial_sql, $fecha_final_sql);
-            $stmt->execute();
-            $resultados = $stmt->get_result();
-        } else {
-            $mensaje_error = "Formato de fecha no válido. Use dd/mm/aaaa.";
-        }
     } else {
         $mensaje_error = "Por favor, especifique una fecha inicial y final.";
         $busqueda_realizada = true; // Para mostrar el mensaje de error en la tabla
@@ -46,45 +38,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-TF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Gengaras - Buscar Venta por Fecha</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <?php
-session_start();
-include 'sidebar.php';
-?>
-
+        <?php include 'sidebar.php'; ?>
         <main class="main-content">
             <header class="top-bar">
-                <div class="dashboard-title">
-                    <h1>VENTAS</h1>
-                </div>
-                
+                <div class="dashboard-title"><h1>VENTAS</h1></div>
             </header>
 
-            <div class="page-content nueva-venta-layout">
-                <div class="venta-main-column">
-                    <nav class="page-tabs venta-tabs">
-                        <ul>
-                            <li><a href="nuevaVenta.php"><span class="icon"></span> NUEVA VENTA</a></li>
-                            <li><a href="ventasRealizadas.php"><span class="icon"></span> VENTAS REALIZADAS</a></li>
-                            <li><a href="buscarXFecha.php" class="tab-active"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
-                            <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
-                        </ul>
-                    </nav>
-                    <form method="POST" action="buscarXFecha.php" class="search-form">
+            <div class="page-content">
+                <nav class="page-tabs venta-tabs">
+                    <ul>
+                        <li><a href="nuevaVenta.php"><span class="icon"></span> NUEVA VENTA</a></li>
+                        <li><a href="ventasRealizadas.php"><span class="icon"></span> VENTAS REALIZADAS</a></li>
+                        <li><a href="buscarXFecha.php" class="tab-active"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
+                        <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (ID)</a></li>
+                    </ul>
+                </nav>
+
+                <form method="POST" action="buscarXFecha.php" class="search-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fecha_inicial">Fecha inicial</label>
-                            <input type="text" id="fecha_inicial" name="fecha_inicial" placeholder="dd/mm/aaaa" value="<?php echo htmlspecialchars($fecha_inicial_str); ?>" required>
+                            <input type="date" id="fecha_inicial" name="fecha_inicial" value="<?php echo htmlspecialchars($fecha_inicial_str); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="fecha_final">Fecha final</label>
-                            <input type="text" id="fecha_final" name="fecha_final" placeholder="dd/mm/aaaa" value="<?php echo htmlspecialchars($fecha_final_str); ?>" required>
+                             <input type="date" id="fecha_final" name="fecha_final" value="<?php echo htmlspecialchars($fecha_final_str); ?>" required>
                         </div>
                     </div>
                     <div class="report-actions">
@@ -103,11 +88,8 @@ include 'sidebar.php';
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>NÚMERO VENTA</th>
                                 <th>FECHA</th>
-                                <th>VENDEDOR</th>
                                 <th>TOTAL</th>
-                                <th>ESTADO</th>
                                 <th>ACCIONES</th>
                             </tr>
                         </thead>
@@ -118,18 +100,17 @@ include 'sidebar.php';
                                         <tr>
                                             <td><?php echo htmlspecialchars($venta['id_venta']); ?></td>
                                             <td><?php echo date("d/m/Y h:i A", strtotime($venta['fecha_venta'])); ?></td>
-                                            <td><?php echo htmlspecialchars($venta['nombres'] . ' ' . $venta['apellidos']); ?></td>
-                                            <td style="font-weight: bold;">$<?php echo number_format($venta['total'], 2); ?></td>
+                                            <td class="total-amount">$<?php echo number_format($venta['total'], 2); ?></td>
                                             <td>
-                                                <a href="eliminarVenta.php?id=<?php echo $venta['id_venta']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta?');">🗑️</a>
+                                                <a href="eliminarVenta.php?id=<?php echo $venta['id_venta']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta? Esta acción no se puede deshacer.');">🗑️</a>
                                             </td>
                                         </tr>
                                     <?php endwhile; ?>
                                 <?php else: ?>
-                                    <tr><td colspan="5">No se encontraron ventas en el rango de fechas seleccionado.</td></tr>
+                                    <tr><td colspan="7">No se encontraron ventas en el rango de fechas seleccionado.</td></tr>
                                 <?php endif; ?>
                             <?php elseif(empty($mensaje_error)): ?>
-                                <tr><td colspan="5">Seleccione un rango de fechas para buscar.</td></tr>
+                                <tr><td colspan="7">Seleccione un rango de fechas para buscar.</td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>

@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id_venta_busqueda']))
                             <?php if ($busqueda_realizada): ?>
                                 <?php if ($resultados && $resultados->num_rows > 0): ?>
                                     <?php while($venta = $resultados->fetch_assoc()): ?>
-                                        <tr>
+                                    <tr>
                                         <td><?php echo htmlspecialchars($venta['id_venta']); ?></td>
                                         <td><?php echo date("d/m/Y h:i A", strtotime($venta['fecha_venta'])); ?></td>
                                         <td class="total-amount">$<?php echo number_format($venta['total'], 2); ?></td>
