@@ -40,7 +40,6 @@ while ($row = $resultado->fetch_assoc()) {
                 <ul>
                     <li><a href="nuevVenta.php" class="tab-active"><span class="icon"></span> NUEVA VENTA</a></li>
                     <li><a href="ventasRealizadas.php"><span class="icon"></span> VENTAS REALIZADAS</a></li>
-                    <li><a href="ventasPendientes.php"><span class="icon"></span> VENTAS PENDIENTES</a></li>
                     <li><a href="buscarXFecha.php"><span class="icon"></span> BUSCAR VENTA (FECHA)</a></li>
                     <li><a href="buscarXCodigo.php"><span class="icon"></span> BUSCAR VENTA (CODIGO)</a></li>
                 </ul>

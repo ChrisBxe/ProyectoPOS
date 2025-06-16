@@ -41,24 +41,14 @@ include 'sidebar.php';
                             <tr>
                                 <th>#</th>
                                 <th>FECHA</th>
-                                <th>VENDEDOR</th>
                                 <th>TOTAL</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            // Consulta SQL con JOIN para obtener el nombre del vendedor
-                            // Se asume que la tabla 'ventas' tiene un campo 'id_usuario' que es una clave foránea a la tabla 'usuarios'
-                            $sql = "SELECT 
-                                        v.id_venta, 
-                                        v.fecha_venta, 
-                                        v.total,  
-                                        u.nombres, 
-                                        u.apellidos 
-                                    FROM ventas AS v
-                                    JOIN usuarios AS u ON v.id_usuario = u.id_usuario
-                                    ORDER BY v.fecha_venta DESC";
+
+                            $sql = "SELECT * FROM ventas";
 
                             $resultado = $conexion->query($sql);
 
@@ -69,8 +59,7 @@ include 'sidebar.php';
                                     <tr>
                                         <td><?php echo htmlspecialchars($venta['id_venta']); ?></td>
                                         <td><?php echo date("d/m/Y h:i A", strtotime($venta['fecha_venta'])); ?></td>
-                                        <td><?php echo htmlspecialchars($venta['nombres'] . ' ' . $venta['apellidos']); ?></td>
-                                        <td class="total-amount">$<?php echo number_format($venta['total_venta'], 2); ?></td>
+                                        <td class="total-amount">$<?php echo number_format($venta['total'], 2); ?></td>
                                         <td>
                                             <a href="eliminarVenta.php?id=<?php echo $venta['id_venta']; ?>" class="action-icon action-delete" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta? Esta acción no se puede deshacer.');">🗑️</a>
                                         </td>
@@ -79,7 +68,7 @@ include 'sidebar.php';
                                 }
                             } else {
                                 // Si no hay ventas, mostrar un mensaje
-                                echo '<tr><td colspan="7">No hay ventas realizadas registradas.</td></tr>';
+                                echo '<tr><td colspan="5">No hay ventas realizadas registradas.</td></tr>';
                             }
                             // Cerrar la conexión
                             $conexion->close();
