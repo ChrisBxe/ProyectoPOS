@@ -57,7 +57,6 @@ include 'sidebar.php';
                                 <th>IMAGEN</th>
                                 <th>CODIGO BARRAS</th>
                                 <th>NOMBRE</th>
-                                <th>PRECIO</th>
                                 <th>DISPONIBILIDAD</th>
                                 <th>ESTADO</th>
                                 <th>ACTUALIZAR</th>
@@ -82,7 +81,6 @@ include 'sidebar.php';
                                     <td><?php echo htmlspecialchars($producto['codigo_producto']); ?></td>
                                     <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
                                     <td class="low-stock"><?php echo htmlspecialchars($producto['stock']); ?></td>
-                                    <td><?php echo htmlspecialchars($producto['stock_minimo']); ?></td>
                                     <td>
                                         <?php if ($producto['estado'] == 'habilitado'): ?>
                                             <span class="status status-active">HABILITADO</span>

@@ -79,7 +79,6 @@ include 'sidebar.php';
                             <th>NOMBRE</th>
                             <th>PRECIO</th>
                             <th>DISPONIBILIDAD</th>
-                            <th>VENCIMIENTO</th>
                             <th>ESTADO</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -100,7 +99,6 @@ include 'sidebar.php';
                                         <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
                                         <td>$<?php echo number_format($producto['precio_venta'], 2); ?></td>
                                         <td><?php echo htmlspecialchars($producto['stock']); ?></td>
-                                        <td><?php echo htmlspecialchars($producto['fecha_vencimiento'] ? date("d/m/Y", strtotime($producto['fecha_vencimiento'])) : 'N/A'); ?></td>
                                         <td>
                                             <?php if ($producto['estado'] == 'habilitado'): ?>
                                                 <span class="status status-active">HABILITADO</span>
