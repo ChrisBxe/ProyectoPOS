@@ -7,7 +7,7 @@ $rol = $_SESSION['rol'] ?? 'Sin rol';
 
 <aside class="sidebar">
     <div class="sidebar-header">
-        <img src="" alt="Avatar" class="avatar">
+        <img src="logo/logo.png" alt="Avatar" class="avatar">
         <h2><?php echo htmlspecialchars($usuario); ?></h2>
         <p><?php echo htmlspecialchars($rol); ?></p>
     </div>
