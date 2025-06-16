@@ -176,7 +176,7 @@ $conexion->close();
                 <div class="user-actions">
                     <span class="icon"></span>
                     <span class="icon"></span>
-                    <span class="icon">POWER</span>
+                    <span class="icon"></span>
                 </div>
             </header>
             <main class="main-content">

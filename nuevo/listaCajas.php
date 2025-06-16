@@ -70,9 +70,7 @@
                 <div class="dashboard-title">
                     <h1>ADMINISTRACION</h1>
                 </div>
-                <div class="user-actions">
-                    <span class="icon">POWER</span>
-                </div>
+                
             </header>
 
             <section class="page-content">

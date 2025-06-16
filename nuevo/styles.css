@@ -172,9 +172,7 @@ body {
     cursor: pointer;
     color: #555;
 }
-.user-actions .icon:last-child{ /* Asumiendo que POWER es el último */
-    color: #e74c3c; /* Rojo para el icono de apagado */
-}
+
 
 
 /* Dashboard Widgets */

@@ -9,7 +9,10 @@
 <body>
     <div class="container">
         <div class="container">
-        <?php include('sidebar.php'); ?>
+        <?php
+session_start();
+include 'sidebar.php';
+?>
 
         <main class="main-content">
             
@@ -18,9 +21,7 @@
                 <div class="dashboard-title">
                     <h1>VENTAS</h1>
                 </div>
-                <div class="user-actions">
-                    <span class="icon">POWER</span>
-                </div>
+                
             </header>
 
             <div class="page-content nueva-venta-layout">

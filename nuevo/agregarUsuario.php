@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $contrasena = $_POST['contrasena'] ?? '';
     $repetir_contrasena = $_POST['repetir_contrasena'] ?? '';
-    $estado_cuenta = $_POST['estado_cuenta'] ?? '';
+    $estado = $_POST['estado'] ?? '';
 
     
     $errores = [];
@@ -46,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hash_password = password_hash($contrasena, PASSWORD_DEFAULT);
 
     
-    $sql = "INSERT INTO usuarios (tipo_documento, numero_documento, cargo, nombres, apellidos, telefono, genero, usar_lector, tipo_codigo, caja_ventas, nombre_usuario, email, contrasena, estado_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuarios (tipo_documento, numero_documento, cargo, nombres, apellidos, telefono, genero, usar_lector, tipo_codigo, caja_ventas, nombre_usuario, email, contrasena, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("sssssssssssssi", $tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $usar_lector, $tipo_codigo, $caja_ventas, $nombre_usuario, $email, $hash_password, $estado_cuenta);
+    $stmt->bind_param("sssssssssssssi", $tipo_documento, $numero_documento, $cargo, $nombres, $apellidos, $telefono, $genero, $usar_lector, $tipo_codigo, $caja_ventas, $nombre_usuario, $email, $hash_password, $estado);
 
     if ($stmt->execute()) {
         echo "<p style='color:green;'>Usuario registrado correctamente.</p>";
