@@ -1,58 +1,63 @@
 <?php
-include("conexionbd.php"); 
+session_start();
+include 'conexionbd.php'; 
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    
-    $cliente = trim($_POST['venta_cliente']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fecha = $_POST['fecha_venta'];
     $tipo_pago = $_POST['tipo_pago'];
-    $descuento = floatval($_POST['venta_descuento_porcentaje']);
-    $total_pagado = floatval($_POST['venta_total_pagado']);
-    $cambio = floatval($_POST['venta_cambio']);
+    $producto_id = $_POST['producto'];
+    $cantidad = $_POST['cantidad'];
+    $descuento_porcentaje = $_POST['descuento_venta'];
+    $total_pagado = $_POST['total_pagado'];
 
     
-    $fecha_venta = date('Y-m-d H:i:s');
+    $stmt = $conexion->prepare("SELECT precio_venta, stock FROM productos WHERE id_producto = ?");
+    $stmt->bind_param("i", $producto_id);
+    $stmt->execute();
+    $stmt->bind_result($precio_unitario, $stock_actual);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($cantidad > $stock_actual) {
+        die("Error: No hay suficiente stock para realizar la venta.");
+    }
 
     
-    $caja_id = 1; 
+    $subtotal = $precio_unitario * $cantidad;
+    $iva = $subtotal * 0.15;
+    $descuento = $subtotal * ($descuento_porcentaje / 100);
+    $total = $subtotal + $iva - $descuento;
+    $cambio = $total_pagado - $total;
+
+    
+    $conexion->begin_transaction();
 
     try {
         
-        $conn->begin_transaction();
+        $stmt = $conexion->prepare("INSERT INTO ventas (fecha_venta, tipo_pago, subtotal, iva, descuento_porcentaje, total, total_pagado, cambio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdddddd", $fecha, $tipo_pago, $subtotal, $iva, $descuento, $total, $total_pagado, $cambio);
+        $stmt->execute();
+        $venta_id = $stmt->insert_id;
+        $stmt->close();
 
         
-        $stmt = $conn->prepare("INSERT INTO venta (fecha, cliente, tipo_pago, descuento, total_pagado, cambio, id_caja) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssdddi", $fecha_venta, $cliente, $tipo_pago, $descuento, $total_pagado, $cambio, $caja_id);
+        $stmt = $conexion->prepare("INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiid", $venta_id, $producto_id, $cantidad, $precio_unitario);
         $stmt->execute();
+        $stmt->close();
 
-        $id_venta = $stmt->insert_id; 
+        
+        $nuevo_stock = $stock_actual - $cantidad;
+        $stmt = $conexion->prepare("UPDATE productos SET stock = ? WHERE id_producto = ?");
+        $stmt->bind_param("ii", $nuevo_stock, $producto_id);
+        $stmt->execute();
+        $stmt->close();
 
-       
-
-        if (isset($_POST['productos'])) {
-            $productos = json_decode($_POST['productos'], true); 
-
-            $stmtDetalle = $conn->prepare("INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
-
-            foreach ($productos as $p) {
-                $id_producto = intval($p['id_producto']);
-                $cantidad = intval($p['cantidad']);
-                $precio = floatval($p['precio_unitario']);
-                $stmtDetalle->bind_param("iiid", $id_venta, $id_producto, $cantidad, $precio);
-                $stmtDetalle->execute();
-
-                
-                $conn->query("UPDATE producto SET stock = stock - $cantidad WHERE id = $id_producto");
-            }
-        }
-
-        $conn->commit();
-        echo json_encode(['success' => true, 'mensaje' => 'Venta registrada exitosamente']);
+        $conexion->commit();
+        echo "Venta registrada correctamente. <a href='nuevaVenta.php'>Volver</a>";
     } catch (Exception $e) {
-        $conn->rollback();
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        $conexion->rollback();
+        echo "Error al registrar venta: " . $e->getMessage();
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
